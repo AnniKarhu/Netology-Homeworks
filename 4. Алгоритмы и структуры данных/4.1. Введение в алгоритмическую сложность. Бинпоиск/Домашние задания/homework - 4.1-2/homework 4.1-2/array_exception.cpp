@@ -10,6 +10,6 @@ ArrayException::ArrayException()
 
 const char* ArrayException::what() const
 {
-	return "ќшибка индекса массива - индекс < 0. ";
+	return "ќшибка индекса массива - индекс < 0."; //почему этот текст отображаетс€ кракоз€брами
 }
 
