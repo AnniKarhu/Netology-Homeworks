@@ -35,7 +35,7 @@ int main()
 
 		std::cout << "Количество элементов в массиве больших, чем " << reference_point << ": ";
 
-		try
+		try 
 		{
 			std::cout << greater_elements_quantity(digits_array, array_size, reference_point);
 		}

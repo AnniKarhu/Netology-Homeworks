@@ -10,6 +10,6 @@ ArrayException::ArrayException()
 
 const char* ArrayException::what() const
 {
-	return "Ошибка индекса массива - индекс < 0.";
+	return "Ошибка индекса массива - индекс < 0. ";
 }
 
