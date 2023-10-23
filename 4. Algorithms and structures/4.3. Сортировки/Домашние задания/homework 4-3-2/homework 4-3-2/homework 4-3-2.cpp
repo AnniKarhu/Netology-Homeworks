@@ -31,7 +31,7 @@ int main()
     int test_array_3[size_3] = { 24, 66, 20, 79, 30, 16, 19, 62, 94, 59, 0, 7, 59, 90, 84, 60, 95, 62 };
     print_array(test_array_3, size_3, "Исходный массив: ");
     quick_sort(test_array_3, size_3);
-    print_array(test_array_3, size_3, "От,сортированный массив: ");
+    print_array(test_array_3, size_3, "Отсортированный массив: ");
     std::cout << "\n";
 }
 
