@@ -7,8 +7,8 @@
 int get_int_value(const std::string str); //получить от пользователя число типа int
 void print_my_dynamic_array(Dynamic_array* arr); //вывести на экран значения динамического массива - класса
 void print_dynamic_array(int* arr, int logical_size, int actual_size); //вывести на экран значения простого динамического массива 
-void enlarge_simple_array_size_x2(int* arr,  int& arr_actual_size, const int arr_logical_size); //увеличить фактический размер массива в 2 раза
-void append_to_dynamic_array(int* arr,  const int new_value, int& arr_actual_size, int& arr_logical_size); //добавить еще один элемент к существующему массиву
+void enlarge_simple_array_size_x2(int* &arr,  int& arr_actual_size, const int arr_logical_size); //увеличить фактический размер массива в 2 раза
+void append_to_dynamic_array(int* &arr,  const int new_value, int& arr_actual_size, int& arr_logical_size); //добавить еще один элемент к существующему массиву
 
 int main()
 {
@@ -23,8 +23,7 @@ int main()
         arr_actual_size = get_int_value("Введите фактичеcкий размер массива: ");
     }
 
-    int* simple_int_array = new int[arr_actual_size] {}; //простой динамический массив
-    
+    int* simple_int_array = new int[arr_actual_size] {}; //простой динамический массив    
 
     //получить от пользователя логический размер
     int arr_logical_size = get_int_value("Введите логический размер массива: ");
@@ -87,9 +86,7 @@ int main()
     std::cout << "Спасибо! Ваш простой массив: ";
     print_dynamic_array(simple_int_array, arr_logical_size, arr_actual_size); //вывести на экран значения простого динамического массива
 
-    delete my_dynamic_array;
-
-    //и этот delete[] вызывает ошибку, если была применена процедура увеличения массива
+    delete my_dynamic_array;   
     delete[] simple_int_array;
 
 }
@@ -149,7 +146,7 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size) //выве
     }
 }
 
-void enlarge_simple_array_size_x2(int* arr, int& arr_actual_size,  const int arr_logical_size) //увеличить фактический размер массива в 2 раза
+void enlarge_simple_array_size_x2(int* &arr, int& arr_actual_size,  const int arr_logical_size) //увеличить фактический размер массива в 2 раза
 {
     //организовать новый массив в 2 раза больше предыдущего
     arr_actual_size *= 2;
@@ -160,21 +157,11 @@ void enlarge_simple_array_size_x2(int* arr, int& arr_actual_size,  const int arr
     {
         new_arr[i] = arr[i];
     }
-
-  //  delete[] arr;  //освободить память старого массива
-    /* Поведение этого delete[] мне не ясно. Насколько я понимаю, если память была выделена ранее, ее необходимо освобождать.
-    * Но есля я освобождаю память старого массива, то в новом массиве new_arr не сохраняются скопированные значения.
-    *функция сейчас при закомментированном delete[] работает так, как мне нужно. Но разве тут не будет утечки памяти?
-    * И если все же правильно освобождать выделенную ранее память, как это сделать, чтобы сохранялись скопированные значения элементов массива?
-    * 
-    * И почему такая проблема не возникает в массиве, обернутом в класс Dynamic_array?
-    * 
-    */
-
+    delete[] arr;  //освободить память старого массива 
     arr = new_arr; //переназначить указатель
 }
 
-void append_to_dynamic_array(int* arr,  const int new_value, int& arr_actual_size,  int& arr_logical_size) //добавить еще один элемент к существующему массиву
+void append_to_dynamic_array(int* &arr,  const int new_value, int& arr_actual_size,  int& arr_logical_size) //добавить еще один элемент к существующему массиву
 {
     if (arr_actual_size == arr_logical_size) //массив полностью заполнен, запаса нет
     {
