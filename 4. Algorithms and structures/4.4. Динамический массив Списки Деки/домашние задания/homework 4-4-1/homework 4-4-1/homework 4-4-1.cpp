@@ -12,7 +12,7 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size); //выв�
 
 int main()
 {
-    setlocale(LC_ALL, "rus");
+    setlocale(LC_ALL, "rus"); 
 
     Dynamic_array*  my_dynamic_array = new Dynamic_array(); //класс обертка для работы с динамическим массивом
         
