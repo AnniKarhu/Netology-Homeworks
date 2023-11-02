@@ -18,6 +18,7 @@ int main()
 {
     setlocale(LC_ALL, "rus");
 
+    //тестовые массивы
     const int size_4 = 6;
     int test_array_4[size_4] = { 1, 3, 6, 5, 9, 8 };
 
@@ -27,7 +28,7 @@ int main()
     const int size_3 = 10;
     int test_array_3[size_3] = { 16, 11, 9, 10, 5, 6, 8, 1, 2, 4 };
        
-    
+    //какой массив проверяем
     int* test_array = test_array_3;
     int size = size_3;
 
@@ -59,9 +60,9 @@ int main()
 
             switch (new_user_action)
             {
-            case user_action_up: 
+            case user_action_up: //переместиться вверх по пирамиде
                 new_possible_index = get_parent_index(current_index);
-                if (new_possible_index < 0)
+                if (new_possible_index < 0) //не бывает индекса меньше 0
                 {
                    std::cout << "Ошибка! Отсутствует родитель\n";
                    break;
@@ -71,9 +72,9 @@ int main()
                 current_index = new_possible_index;
                 break;
 
-            case user_action_left:
+            case user_action_left:  //переместиться вниз влево
                 new_possible_index = get_left_index(current_index, size);
-                if (new_possible_index < 0)
+                if (new_possible_index < 0) //не выходить за пределы массива
                 {
                     std::cout << "Ошибка! Отсутствует левый потомок\n";
                     break;
@@ -82,9 +83,9 @@ int main()
                 current_index = new_possible_index;
                 break;
 
-            case user_action_right:
+            case user_action_right: //переместиться вниз вправо
                 new_possible_index = get_right_index(current_index, size);
-                if (new_possible_index < 0)
+                if (new_possible_index < 0) //не выходить за пределы массива
                 {
                     std::cout << "Ошибка! Отсутствует правый потомок\n";
                     break;
@@ -95,7 +96,6 @@ int main()
 
             }
 
-           // current_index = new_possible_index;
             std::cout << get_index_info(current_index, test_array, size) << "\n";
             
         }
@@ -209,25 +209,21 @@ user_actions get_next_action() //какое действие выполнить
     std::string user_str = "";
     std::cin >> user_str;
 
-    //if (user_str == "up")
     if (user_str == "up")
     {
         return user_action_up;
     }
 
-    //if (user_str == "left")
     if (user_str == "left")
     {
         return user_action_left;
     }
 
-    //if (user_str == "righ")
     if (user_str == "right")
     {
         return user_action_right;
     }
 
-    //if (user_str == "exit")
     if (user_str == "exit")
     {
         return user_action_exit;
