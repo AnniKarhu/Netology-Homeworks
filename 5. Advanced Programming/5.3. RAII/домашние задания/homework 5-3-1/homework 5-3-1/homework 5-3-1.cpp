@@ -22,11 +22,11 @@ int main()
 		arr.add_element(14);
 		arr.add_element(15);
 		std::cout << arr.get_element(4) << std::endl;
-		std::cout << arr.get_element(5) << std::endl;
+		std::cout << arr.get_element(5) << std::endl;  //вызывает ошибку
 
 	}
 	catch (const std::exception& ex) {
-		std::cout << "Ошибка:" << ex.what() << std::endl;
+		std::cout << "Ошибка: " << ex.what() << std::endl;
 		
 	}
 
@@ -46,7 +46,7 @@ int main()
 		arr2.add_element(15);
 		arr2.print_array();
 		std::cout << arr2.get_element(4) << std::endl;
-		std::cout << arr2.get_element(5) << std::endl;
+		std::cout << arr2.get_element(5) << std::endl; //вызывает ошибку
 	}
 	catch (const std::exception& ex) {
 		std::cout << "Ошибка: " << ex.what() << std::endl;		
