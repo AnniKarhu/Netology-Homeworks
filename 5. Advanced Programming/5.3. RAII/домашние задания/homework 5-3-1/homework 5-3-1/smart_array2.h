@@ -6,12 +6,12 @@ class Smart_array2 : public Smart_array
 {
 private:
     int logical_size = 0;
-    void enlarge_array_size_x2(); //увеличить фактический размер массива
+    void enlarge_array_size_x2(); //СѓРІРµР»РёС‡РёС‚СЊ С„Р°РєС‚РёС‡РµСЃРєРёР№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 public:
     explicit Smart_array2(const int new_size);
     ~Smart_array2() override;
   
-    void add_element(const int new_value) override; //добавить элемент
-    int get_element(const int elem_index) override; //получить элемент по индексу
-    void print_array(); //вывести значения массива   
+    void add_element(const int new_value) override; //РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚
+    int get_element(const int elem_index) override; //РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ
+    void print_array(); //РІС‹РІРµСЃС‚Рё Р·РЅР°С‡РµРЅРёСЏ РјР°СЃСЃРёРІР°   
 };

@@ -11,9 +11,9 @@ public:
     explicit Smart_array(const int new_size);
     ~Smart_array();
     
-    void add_element(const int new_value); //добавить элемент
-    int get_element(const int elem_index);   //получить элемент по индексу
-    void print_array(); //вывести на экран
+    void add_element(const int new_value); //РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚
+    int get_element(const int elem_index);   //РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ
+    void print_array(); //РІС‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ
 
     Smart_array& operator=(Smart_array &arr2);
 };

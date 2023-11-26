@@ -23,7 +23,7 @@ void Smart_array::add_element(const int new_value)
     if ((add_to_array_index >= array_size) ||
         (arr == nullptr))
     {
-        throw Array_Exception(); //выбросить ошибку
+        throw Array_Exception(); //РІС‹Р±СЂРѕСЃРёС‚СЊ РѕС€РёР±РєСѓ
     }
         
 
@@ -37,7 +37,7 @@ int Smart_array::get_element(const int elem_index)
         (elem_index >= array_size) ||
         (arr == nullptr))
     {
-        throw Array_Exception(); //выбросить ошибку
+        throw Array_Exception(); //РІС‹Р±СЂРѕСЃРёС‚СЊ РѕС€РёР±РєСѓ
     }
 
     return arr[elem_index];

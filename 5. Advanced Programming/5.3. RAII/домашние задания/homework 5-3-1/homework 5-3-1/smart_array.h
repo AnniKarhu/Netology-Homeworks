@@ -4,12 +4,12 @@ class Smart_array
 {
 protected:
     int* arr = nullptr;
-    int array_size = 0;  //фактический размер массива
-    int add_to_array_index = 0; //указатель на индекс для добавленя следующего элемента
+    int array_size = 0;  //С„Р°РєС‚РёС‡РµСЃРєРёР№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
+    int add_to_array_index = 0; //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёРЅРґРµРєСЃ РґР»СЏ РґРѕР±Р°РІР»РµРЅСЏ СЃР»РµРґСѓСЋС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
 public:
     explicit Smart_array(const int new_size);
     virtual ~Smart_array();
   
-    virtual void add_element(const int new_value); //добавить элемент
-    virtual int get_element(const int elem_index);   //получить элемент по индексу
+    virtual void add_element(const int new_value); //РґРѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚
+    virtual int get_element(const int elem_index);   //РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ
 };
