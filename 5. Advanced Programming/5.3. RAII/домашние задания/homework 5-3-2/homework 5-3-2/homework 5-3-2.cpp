@@ -17,8 +17,8 @@ int main()
     arr.add_element(155);
     arr.print_array();
 
-    Smart_array arr3(arr);
-    arr3.print_array();
+    Smart_array arr2(arr);
+    arr2.print_array();
 
     Smart_array new_array(2);
     new_array.add_element(44);

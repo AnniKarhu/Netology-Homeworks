@@ -4,8 +4,9 @@ class Smart_array
 {
 private:
     int* arr = nullptr;
-    int array_size = 0;
     int add_to_array_index = 0;
+    int array_size = 0;
+    
 
 public:
     

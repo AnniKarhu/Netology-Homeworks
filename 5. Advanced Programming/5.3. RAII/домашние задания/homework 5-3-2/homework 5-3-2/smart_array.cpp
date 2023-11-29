@@ -26,10 +26,7 @@ Smart_array::Smart_array(const Smart_array& arr2)
 
 Smart_array::~Smart_array()
 {
-    if (arr != nullptr)
-    {
-        delete[] arr;
-    }
+    delete[] arr;    
 }
 
 void Smart_array::add_element(const int new_value)
