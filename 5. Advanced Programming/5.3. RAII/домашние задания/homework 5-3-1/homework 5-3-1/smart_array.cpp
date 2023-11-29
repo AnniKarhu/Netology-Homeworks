@@ -12,10 +12,7 @@ Smart_array::Smart_array(const int new_size)
 
 Smart_array::~Smart_array()
 {
-    if (arr != nullptr)
-    {
-        delete[] arr;
-    }
+   delete[] arr;    
 }
 
 void Smart_array::add_element(const int new_value)
@@ -24,8 +21,7 @@ void Smart_array::add_element(const int new_value)
         (arr == nullptr))
     {
         throw Array_Exception(); //выбросить ошибку
-    }
-        
+    }        
 
     arr[add_to_array_index] = new_value;
     ++add_to_array_index;
@@ -34,7 +30,7 @@ void Smart_array::add_element(const int new_value)
 int Smart_array::get_element(const int elem_index)
 {
     if ((elem_index < 0) ||
-        (elem_index >= array_size) ||
+        (elem_index >= add_to_array_index) || //(elem_index >= array_size) ||
         (arr == nullptr))
     {
         throw Array_Exception(); //выбросить ошибку

@@ -10,6 +10,20 @@ Smart_array::Smart_array(const int new_size)
     }  
 }
 
+Smart_array::Smart_array(const Smart_array& arr2)
+{
+    array_size = arr2.array_size;
+    arr = new int[array_size];
+
+    if (array_size > 0)
+    {
+        for (int i = 0; i < array_size; ++i)
+        {
+            arr[i] = arr2.arr[i];
+        }
+    }
+}
+
 Smart_array::~Smart_array()
 {
     if (arr != nullptr)
@@ -43,7 +57,7 @@ int Smart_array::get_element(const int elem_index)
     return arr[elem_index];
 }
 
-Smart_array& Smart_array::operator=(Smart_array &arr2)
+Smart_array& Smart_array::operator=(const Smart_array &arr2)
 {
     delete[] arr;
     this->array_size = arr2.array_size;

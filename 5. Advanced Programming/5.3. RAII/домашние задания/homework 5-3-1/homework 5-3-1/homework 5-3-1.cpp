@@ -14,8 +14,10 @@ int main()
 
 	//класс Smart_array - при добавлении лишнего элемента выкидывает ошибку
 	std::cout << "класс Smart_array - при добавлении лишнего элемента выкидывает ошибку\n";
+	Smart_array arr(5);
+
 	try {
-		Smart_array arr(5);
+		
 		arr.add_element(1);
 		arr.add_element(4);
 		arr.add_element(155);
@@ -26,14 +28,15 @@ int main()
 
 	}
 	catch (const std::exception& ex) {
-		std::cout << "Ошибка: " << ex.what() << std::endl;
-		
-	}
+		std::cout << "Ошибка: " << ex.what() << std::endl;		
+	}	
 
 	//класс Smart_array2 - при добавлении лишнего элемента увеличивает размер массива
 	std::cout << "\n\nкласс Smart_array2 - при добавлении лишнего элемента увеличивает размер массива\n";
+	
+	Smart_array2 arr2(2);
 	try {
-		Smart_array2 arr2(2);
+		
 		arr2.print_array();
 		arr2.add_element(1);
 		arr2.print_array();
@@ -51,5 +54,7 @@ int main()
 	catch (const std::exception& ex) {
 		std::cout << "Ошибка: " << ex.what() << std::endl;		
 	}
+
+	//Smart_array2 arr3 = arr2; //не компилируется, так как запрещено в классе-родителе 
 
 }

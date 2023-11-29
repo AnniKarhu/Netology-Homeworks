@@ -25,7 +25,7 @@ Smart_array2::~Smart_array2()
 int Smart_array2::get_element(const int elem_index)
 {
     if ((elem_index < 0) ||
-        (elem_index >= logical_size) ||
+        (elem_index >= add_to_array_index) ||//(elem_index >= logical_size) ||
         (arr == nullptr))
     {
         throw Array_Exception(); //выбросить ошибку

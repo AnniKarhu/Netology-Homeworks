@@ -17,6 +17,9 @@ int main()
     arr.add_element(155);
     arr.print_array();
 
+    Smart_array arr3(arr);
+    arr3.print_array();
+
     Smart_array new_array(2);
     new_array.add_element(44);
     new_array.add_element(34);
@@ -24,4 +27,10 @@ int main()
 
     arr = new_array;
     arr.print_array();
+
+    const Smart_array object(5);
+    new_array = object;
+    new_array.print_array();
+
+  
 }
