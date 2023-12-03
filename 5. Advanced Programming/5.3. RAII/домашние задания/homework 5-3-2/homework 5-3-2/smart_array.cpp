@@ -14,14 +14,11 @@ Smart_array::Smart_array(const Smart_array& arr2)
 {
     array_size = arr2.array_size;
     arr = new int[array_size];
-
-    if (array_size > 0)
-    {
-        for (int i = 0; i < array_size; ++i)
-        {
-            arr[i] = arr2.arr[i];
-        }
-    }
+    add_to_array_index = arr2.add_to_array_index;
+    for (int i = 0; i < array_size; ++i)
+     {
+        arr[i] = arr2.arr[i];
+     }    
 }
 
 Smart_array::~Smart_array()
@@ -35,8 +32,7 @@ void Smart_array::add_element(const int new_value)
         (arr == nullptr))
     {
         throw Array_Exception(); //выбросить ошибку
-    }
-        
+    }       
 
     arr[add_to_array_index] = new_value;
     ++add_to_array_index;
@@ -45,7 +41,7 @@ void Smart_array::add_element(const int new_value)
 int Smart_array::get_element(const int elem_index)
 {
     if ((elem_index < 0) ||
-        (elem_index >= array_size) ||
+        (elem_index >= add_to_array_index) ||
         (arr == nullptr))
     {
         throw Array_Exception(); //выбросить ошибку
@@ -56,18 +52,18 @@ int Smart_array::get_element(const int elem_index)
 
 Smart_array& Smart_array::operator=(const Smart_array &arr2)
 {
-    delete[] arr;
-    this->array_size = arr2.array_size;
-    arr = new int[array_size];
-    
-    if (array_size > 0)
+    if (this != &arr2)
     {
-        for (int i = 0; i < array_size; ++i)
-        {
+        delete[] arr;
+        array_size = arr2.array_size;
+        add_to_array_index = arr2.add_to_array_index;
+        arr = new int[array_size];
+    
+       for (int i = 0; i < array_size; ++i)
+       {
             arr[i] = arr2.arr[i];
-        }
+       }        
     }
-
     return *this;
 }
 
