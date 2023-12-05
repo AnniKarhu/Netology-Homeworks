@@ -45,6 +45,10 @@ TEST_CASE("test Class List", "[test_class_list]")
     SECTION("Section test List.PopFront() &  List.PopBack()")
     {   
         List my_new_list;
+
+        REQUIRE_THROWS(my_new_list.PopFront());
+        REQUIRE_THROWS(my_new_list.PopBack()); 
+
         int test_bool1 = false;
         int test_bool2 = false;
         try
@@ -84,6 +88,8 @@ TEST_CASE("test Class List", "[test_class_list]")
         }
         CHECK(test_bool1 == false);
         CHECK(test_bool2 == true);
+
+
 
         my_new_list.PushFront(1);
         CHECK(my_new_list.Size() == 1);
