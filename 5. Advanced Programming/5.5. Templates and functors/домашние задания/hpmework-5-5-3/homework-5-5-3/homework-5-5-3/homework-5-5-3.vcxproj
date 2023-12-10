@@ -130,7 +130,7 @@
     <ClCompile Include="homework-5-5-3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="array_functor.h" />
+    <ClInclude Include="simple_functor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

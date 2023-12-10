@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "array_functor.h"
+#include "simple_functor.h"
 
 int main()
 {
