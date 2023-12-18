@@ -1,79 +1,133 @@
 ﻿#pragma once
 #include "table_exception.h"
+#include "cols_env.h"
 
 template<class T>
 class table
-{
+ {
 public:
-	table(int _rows_num, int _cols_num) : rows_num(_rows_num), cols_num(_cols_num)		
+	table(int _rows_num, int _cols_num) : rows_num(_rows_num), cols_num(_cols_num)
 	{
-		//assert(rows_num > 0);
-		//assert(cols_num > 0);
-
 		if ((_cols_num > 0) && (_rows_num > 0))
 		{
-			rows = new T* [_rows_num];			
+			rows = new cols_env<T>*[_rows_num] ;
+			
 			for (int i = 0; i < _rows_num; ++i)
-			{
-				rows[i] = new T[_cols_num]();
+			{	
+				rows[i] = new cols_env<T>(_cols_num);				
 			}
 		}
 	}
 	~table()
 	{
+		
 		for (int i = 0; i < rows_num; ++i)
 		{
-			delete[] rows[i];
+			delete rows[i];
 		}
-
+		
 		delete[] rows;
 	}
 
-	table(const table&) = delete;
-	table& operator=(const table&) = delete;
-	
-	T getElement(const int row, const int col) 
+	//конструктор копирования
+	table(const table& old_table)
 	{
-		//проверить индексы, выкинуть исключение
-		if ((row < 0) || (col <0) || (row > rows_num-1) || (col > cols_num -1))
-		{
-			throw Table_Exception(); //выбросить ошибку
+		rows_num = old_table.rows_num;
+		cols_num = old_table.cols_num;
+
+		if ((cols_num > 0) && (rows_num > 0))
+		{			
+			rows = new cols_env<T>*[rows_num];
+
+			for (int i = 0; i < rows_num; ++i)
+			{
+				rows[i] = new cols_env<T>(cols_num);
+				for (int j = 0; j < cols_num; ++j)
+				{
+					rows[i]->cols[j] = old_table.rows[i]->cols[j];
+				}
+			}			
 		}
-		
-		return rows[row][col];
 	}
 
-	void setElement(const int row, const int col, const T &value)
+	//оператор присваивания 
+	table& operator=(const table& old_table)
+	{
+		if (this != &old_table) //нет смысла присваивать объект самому себе
+		{
+			for (int i = 0; i < rows_num; ++i) //почистить все колонки
+			{
+				delete[] rows[i];
+			}
+
+			delete[] rows; //почистить строки
+
+			rows_num = old_table.rows_num;
+			cols_num = old_table.cols_num;
+
+			if ((cols_num > 0) && (rows_num > 0))
+			{
+				rows = new cols_env<T>*[rows_num];
+				for (int i = 0; i < rows_num; ++i)
+				{
+					rows[i] = new cols_env<T>(cols_num);
+					for (int j = 0; j < cols_num; ++j)
+					{
+						rows[i]->cols[j] = old_table.rows[i]->cols[j];
+						
+					}
+				}
+			}
+
+		}
+
+	}
+	
+
+	T getElement(const int row, const int col)
 	{
 		//проверить индексы, выкинуть исключение
 		if ((row < 0) || (col < 0) || (row > rows_num - 1) || (col > cols_num - 1))
 		{
 			throw Table_Exception(); //выбросить ошибку
 		}
-		rows[row][col] = value;
+
+		cols_env<T>* temp_cols = rows[row];
+		T temp_value = temp_cols->cols[col]; // ->cols[col];
+		return temp_value;
+		
+		//return rows[row]->cols[col]; 
 	}
 
-	T* operator[](const int _row_num)
+	void setElement(const int row, const int col, const T& value)
 	{
 		//проверить индексы, выкинуть исключение
-		if ((_row_num < 0)  || (_row_num > rows_num - 1) )
+		if ((row < 0) || (col < 0) || (row > rows_num - 1) || (col > cols_num - 1))
 		{
 			throw Table_Exception(); //выбросить ошибку
 		}
-		return rows[_row_num];
+		rows[row]->cols[col] = value;
 	}
 
-	const T* operator[](const int _row_num) const
+	cols_env<T>& operator[](const int _row_num)
 	{
 		//проверить индексы, выкинуть исключение
 		if ((_row_num < 0) || (_row_num > rows_num - 1))
 		{
 			throw Table_Exception(); //выбросить ошибку
 		}
-		return rows[_row_num];
+		return *(rows[_row_num]);
 	}
 
-	
+	const cols_env<T>& operator[](const int _row_num) const
+	{
+		//проверить индексы, выкинуть исключение
+		if ((_row_num < 0) || (_row_num > rows_num - 1))
+		{
+			throw Table_Exception(); //выбросить ошибку
+		}
+		return *(rows[_row_num]);
+	}
 
 	const int size()
 	{
@@ -81,15 +135,9 @@ public:
 		return rows_num * cols_num;
 	}
 
-	//нужны проверки
-	//	на соблюдение границ массивов
-	//	что указатели не равны nullptr
-	//	что кол-во строк и столбцов больше 0
-	
-	
 private:
 	int rows_num = 0;
-	int cols_num = 0;
-	T** rows = nullptr;
-	T*  cols = nullptr;	
+	int cols_num = 0;	
+	cols_env<T>** rows = nullptr;	
+		
 };

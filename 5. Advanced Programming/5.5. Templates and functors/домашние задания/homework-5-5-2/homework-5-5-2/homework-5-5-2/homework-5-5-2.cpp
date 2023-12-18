@@ -3,32 +3,33 @@
 
 #include <iostream>
 #include "table.h"
+//#include "cols_env.h"
 
 int main()
 {
-    
+
     setlocale(LC_ALL, "Russian");
 
     table<int> new_table(2, 3);
-    // table<int> new_table2 = new_table; //присваивание запрещено
-    // table<int> new_table2(new_table); //конструктор копирования запрещен
-
-    std::cout << new_table.getElement(1, 1) << "\n";
-    new_table.setElement(1, 1, 10);
-    std::cout << new_table.getElement(1, 1) << "\n";
-
-    std::cout << new_table[1][1] << "\n";
-
-    new_table[0][1] = 20;
-    std::cout << new_table[0][1] << "\n";
-
-    std::cout << new_table.size() << "\n";
+    std::cout << "new_table.size = " << new_table.size() << "\n";
 
     try
     {
-        std::cout << new_table[1][-1] << "\n"; //не выкинет ошибку
-        std::cout << new_table[2][1] << "\n"; //выкинет ошибку
-        std::cout << new_table[-2][1] << "\n"; //выкинет ошибку
+        std::cout << new_table.getElement(1, 1) << "\n";
+        new_table.setElement(1, 1, 10);
+        new_table.setElement(0, 0, 20);
+        std::cout << "getElement(1, 1) = " << new_table.getElement(1, 1) << "\n";
+        std::cout << "getElement(0, 0) = " << new_table.getElement(0, 0) << "\n";
+
+        new_table[0][1] = 30;
+        std::cout << "[0][1] = " << new_table[0][1] << "\n";
+
+
+        // std::cout << new_table.getElement(10, 1) << "\n"; //выбросит исключение
+        // std::cout << new_table.getElement(1, 10) << "\n"; //выбросит исключение
+
+         //new_table[0][10] = 30;                                   //выбросит исключение
+         //std::cout << "[0][10] = " << new_table[0][10] << "\n"; //выбросит исключение
     }
     catch (const std::exception& ex)
     {
@@ -39,15 +40,18 @@ int main()
 
     }
 
-    auto test = table<int>(2, 3);
-    test[0][0] = 4;
-    std::cout << test[0][0] << "\n";; // выводит 4
-     
-   
-    const  table<int> test_table(2, 3);
-    int test_val = test_table[1][1];
-    std::cout << test_val;  
+    std::cout << "\n";
 
+    table<int> table2(new_table);
+    std::cout << "table2.getElement(1, 1) = " << table2.getElement(1, 1) << "\n";
+    std::cout << "table2.getElement(0, 0) = " << table2.getElement(0, 0) << "\n";
+    std::cout << "table2[0][1] = " << table2[0][1] << "\n";
+
+
+    std::cout << "\n";
+    auto table3 = table2;
+    std::cout << "table3.getElement(1, 1) = " << table3.getElement(1, 1) << "\n";
+    std::cout << "table3.getElement(0, 0) = " << table3.getElement(0, 0) << "\n";
+    std::cout << "table3[0][1] = " << table3[0][1] << "\n";
 
 }
-
