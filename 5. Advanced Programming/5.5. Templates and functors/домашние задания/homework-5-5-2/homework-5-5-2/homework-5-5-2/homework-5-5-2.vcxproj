@@ -131,6 +131,7 @@
     <ClCompile Include="table_exception.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cols_env.h" />
     <ClInclude Include="table.h" />
     <ClInclude Include="table_exception.h" />
   </ItemGroup>
