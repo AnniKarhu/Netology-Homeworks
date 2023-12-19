@@ -24,10 +24,16 @@ public:
 
 	T* operator->()
 	{
-		//return raw_ptr;
-		return this;
+		return raw_ptr;
+		//return *this;
 	}
 
+	T* release()
+	{
+		T* temp_ptr = raw_ptr;
+		raw_ptr = nullptr;
+		return temp_ptr;
+	}
 
 
 private:
