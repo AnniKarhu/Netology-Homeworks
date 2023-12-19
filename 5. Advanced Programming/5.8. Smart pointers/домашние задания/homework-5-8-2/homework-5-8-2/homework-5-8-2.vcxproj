@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{94e3dd89-f596-439f-9956-72cb688588ea}</ProjectGuid>
-    <RootNamespace>homework553</RootNamespace>
+    <ProjectGuid>{1c8a5590-1609-4c82-915c-d0368129822d}</ProjectGuid>
+    <RootNamespace>homework582</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,10 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="homework-5-5-3.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="simple_functor.h" />
+    <ClCompile Include="homework-5-8-2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
