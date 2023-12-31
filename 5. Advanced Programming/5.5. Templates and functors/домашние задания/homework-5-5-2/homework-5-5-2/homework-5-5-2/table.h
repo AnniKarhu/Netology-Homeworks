@@ -57,7 +57,10 @@ public:
 		{
 			for (int i = 0; i < rows_num; ++i) //почистить все колонки
 			{
-				delete[] rows[i];
+				//На строке 60 в файле table.h вы вызываете delete[] rows[i]; нужно писать delete rows[i]; так как аллокация была не как массив а как один объект.
+				
+				//delete[] rows[i];
+				delete rows[i];
 			}
 
 			delete[] rows; //почистить строки

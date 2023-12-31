@@ -9,15 +9,19 @@ class cols_env
 public:
 	cols_env(int _cols_num) : cols_num(_cols_num)
 	{
-		
-
 		cols_num = _cols_num;	
 		if (_cols_num > 0)
 		{			
 			cols = new T[_cols_num]();
-		}
-		
+		}		
 	}
+
+	//конструктор копирования
+	cols_env(const cols_env& old_cols_env) = delete;
+
+	//оператор присваивания 
+	cols_env& operator=(const cols_env& old_cols_env) = delete;
+
 	~cols_env()
 	{
 		delete[] cols;
