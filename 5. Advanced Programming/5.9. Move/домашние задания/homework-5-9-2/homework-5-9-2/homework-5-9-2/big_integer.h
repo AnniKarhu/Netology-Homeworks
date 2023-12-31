@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <vector>
 
@@ -6,30 +6,30 @@ class big_integer
 {
 private:
 	std::vector<int>* big_vector = nullptr; // = { 0 }; //
-	bool value_is_valid() const; // = true; //поле принимает значение false, если число не валидно, например, при создании не была успешно преобразована строка в число
-	const int elem_size = 4; //сколько разрядов числа хранит один блок -       элемент big_vector
-	int sign = 1; //знак числа
+	bool value_is_valid() const; // = true; //РїРѕР»Рµ РїСЂРёРЅРёРјР°РµС‚ Р·РЅР°С‡РµРЅРёРµ false, РµСЃР»Рё С‡РёСЃР»Рѕ РЅРµ РІР°Р»РёРґРЅРѕ, РЅР°РїСЂРёРјРµСЂ, РїСЂРё СЃРѕР·РґР°РЅРёРё РЅРµ Р±С‹Р»Р° СѓСЃРїРµС€РЅРѕ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅР° СЃС‚СЂРѕРєР° РІ С‡РёСЃР»Рѕ
+	const int elem_size = 4; //СЃРєРѕР»СЊРєРѕ СЂР°Р·СЂСЏРґРѕРІ С‡РёСЃР»Р° С…СЂР°РЅРёС‚ РѕРґРёРЅ Р±Р»РѕРє -       СЌР»РµРјРµРЅС‚ big_vector
+	int sign = 1; //Р·РЅР°Рє С‡РёСЃР»Р°
 public:
 	//std::string str_value = "0";
 	
 	big_integer(std::string value_str);
-	big_integer(const big_integer& other);//конструктор копирования
-	big_integer(big_integer&& other);	// конструктор перемещения
+	big_integer(const big_integer& other);//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	big_integer(big_integer&& other);	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 
 	~big_integer();
 	
-	big_integer& operator=(const big_integer& other);  //оператор присваивания 
-	big_integer& operator=(big_integer&& other);       // оператор перемещающего присваивания
+	big_integer& operator=(const big_integer& other);  //РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ 
+	big_integer& operator=(big_integer&& other);       // РѕРїРµСЂР°С‚РѕСЂ РїРµСЂРµРјРµС‰Р°СЋС‰РµРіРѕ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 	
-	big_integer operator+(const big_integer& other); //оператор сложения
-	big_integer operator-(const big_integer& other); //оператор вычитания
-	big_integer operator*(const int& other); //оператор умножения
+	big_integer operator+(const big_integer& other); //РѕРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ
+	big_integer operator-(const big_integer& other); //РѕРїРµСЂР°С‚РѕСЂ РІС‹С‡РёС‚Р°РЅРёСЏ
+	big_integer operator*(const int& other); //РѕРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ
 
 	//bool operator>(const big_integer& other) const;
-	bool module_greater(const big_integer& first, const big_integer& second); //сравнение чисел по модулю
+	bool module_greater(const big_integer& first, const big_integer& second); //СЃСЂР°РІРЅРµРЅРёРµ С‡РёСЃРµР» РїРѕ РјРѕРґСѓР»СЋ
 
 	int get_size() const;
 	//std::string get_elements(); 
 	
-	friend std::ostream& operator<<(std::ostream& os, const big_integer& my_big_int); //вывод большого числа
+	friend std::ostream& operator<<(std::ostream& os, const big_integer& my_big_int); //РІС‹РІРѕРґ Р±РѕР»СЊС€РѕРіРѕ С‡РёСЃР»Р°
 };
