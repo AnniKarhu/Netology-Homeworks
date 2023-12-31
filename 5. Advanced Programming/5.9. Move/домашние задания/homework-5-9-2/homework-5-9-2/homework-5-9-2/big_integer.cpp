@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <string>
 #include <math.h>
 
@@ -6,7 +6,7 @@
 
 big_integer::big_integer(std::string value_str)
 {
-	//std::cout << "обычный конструктор \n";
+	//std::cout << "РѕР±С‹С‡РЅС‹Р№ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ \n";
 	big_vector = new std::vector<int>;
 		
 	if (value_str.size() == 0)
@@ -16,7 +16,7 @@ big_integer::big_integer(std::string value_str)
 		return;
 	}
 	
-	//знаком минус может быть только первый элемент
+	//Р·РЅР°РєРѕРј РјРёРЅСѓСЃ РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚РѕР»СЊРєРѕ РїРµСЂРІС‹Р№ СЌР»РµРјРµРЅС‚
 	int start_index = 0;
 	
 	if (value_str[0] == '-')
@@ -28,7 +28,7 @@ big_integer::big_integer(std::string value_str)
 	std::string temp_str = "";
 	for (int i = value_str.size() - 1, j = 1; i >= start_index && j <= elem_size; --i, ++j)
 	{
-		//проверка на знак минус нужна здесь, так как знак минус в начале группы не вызовет исключения
+		//РїСЂРѕРІРµСЂРєР° РЅР° Р·РЅР°Рє РјРёРЅСѓСЃ РЅСѓР¶РЅР° Р·РґРµСЃСЊ, С‚Р°Рє РєР°Рє Р·РЅР°Рє РјРёРЅСѓСЃ РІ РЅР°С‡Р°Р»Рµ РіСЂСѓРїРїС‹ РЅРµ РІС‹Р·РѕРІРµС‚ РёСЃРєР»СЋС‡РµРЅРёСЏ
 		if (value_str[i] == '-')
 		{
 			delete big_vector;
@@ -38,12 +38,12 @@ big_integer::big_integer(std::string value_str)
 		
 		temp_str = value_str[i] + temp_str;
 		
-		if ((j == elem_size) ||			//конец группы разрядов
-			(i == start_index))  //или конец строки
+		if ((j == elem_size) ||			//РєРѕРЅРµС† РіСЂСѓРїРїС‹ СЂР°Р·СЂСЏРґРѕРІ
+			(i == start_index))  //РёР»Рё РєРѕРЅРµС† СЃС‚СЂРѕРєРё
 		{
 			try
 			{
-				int temp_int = std::stoi(temp_str); //to do - убрать лишнюю строку
+				int temp_int = std::stoi(temp_str); //to do - СѓР±СЂР°С‚СЊ Р»РёС€РЅСЋСЋ СЃС‚СЂРѕРєСѓ
 				(*big_vector).push_back(temp_int);
 				//std::cout << "> " << temp_str << "\n";
 			}
@@ -61,9 +61,9 @@ big_integer::big_integer(std::string value_str)
 
 }
 
-big_integer::big_integer(const big_integer& other)  //конструктор копирования
+big_integer::big_integer(const big_integer& other)  //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 {
-	//std::cout << "конструктор копирования\n";
+	//std::cout << "РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ\n";
 	
 	sign = other.sign;
 	
@@ -81,9 +81,9 @@ big_integer::big_integer(const big_integer& other)  //конструктор копирования
 
 
 
-big_integer::big_integer(big_integer&& other)	// конструктор перемещения
+big_integer::big_integer(big_integer&& other)	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 {
-	//std::cout << "конструктор  перемещения\n";
+	//std::cout << "РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ  РїРµСЂРµРјРµС‰РµРЅРёСЏ\n";
 
 	big_vector = other.big_vector;
 	sign = other.sign;
@@ -93,15 +93,15 @@ big_integer::big_integer(big_integer&& other)	// конструктор перемещения
 
 big_integer::~big_integer()
 {
-	//std::cout << "деструктор\n";
+	//std::cout << "РґРµСЃС‚СЂСѓРєС‚РѕСЂ\n";
 	delete big_vector;
 }
 
-big_integer& big_integer::operator=(const big_integer& other) //оператор присваивания
+big_integer& big_integer::operator=(const big_integer& other) //РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 {
-	//std::cout << "оператор присваивания \n";
+	//std::cout << "РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ \n";
 
-	if (this != &other) //нет смысла присваивать объект самому себе
+	if (this != &other) //РЅРµС‚ СЃРјС‹СЃР»Р° РїСЂРёСЃРІР°РёРІР°С‚СЊ РѕР±СЉРµРєС‚ СЃР°РјРѕРјСѓ СЃРµР±Рµ
 	{
 		return *this = big_integer(other);
 
@@ -110,28 +110,28 @@ big_integer& big_integer::operator=(const big_integer& other) //оператор присваи
 	return *this;
 }
 
-big_integer& big_integer::operator=(big_integer&& other)       // оператор перемещающего присваивания
+big_integer& big_integer::operator=(big_integer&& other)       // РѕРїРµСЂР°С‚РѕСЂ РїРµСЂРµРјРµС‰Р°СЋС‰РµРіРѕ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 {
-	//std::cout << "оператор перемещающего присваивания\n";
+	//std::cout << "РѕРїРµСЂР°С‚РѕСЂ РїРµСЂРµРјРµС‰Р°СЋС‰РµРіРѕ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ\n";
 	return *this = big_integer(other);
 }
 
-big_integer big_integer::operator+(const big_integer& other) //оператор сложения
+big_integer big_integer::operator+(const big_integer& other) //РѕРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ
 {
-	//std::cout << "оператор сложения\n";
+	//std::cout << "РѕРїРµСЂР°С‚РѕСЂ СЃР»РѕР¶РµРЅРёСЏ\n";
 
 	big_integer temp_sum_big_integer("");
 	
 	if ((!this->value_is_valid()) || (!other.value_is_valid()))
 	{
-		//нельзя складывать невалидные значение - вернуть результат - тоже невалидное значение
+		//РЅРµР»СЊР·СЏ СЃРєР»Р°РґС‹РІР°С‚СЊ РЅРµРІР°Р»РёРґРЅС‹Рµ Р·РЅР°С‡РµРЅРёРµ - РІРµСЂРЅСѓС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ - С‚РѕР¶Рµ РЅРµРІР°Р»РёРґРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
 		return temp_sum_big_integer;
 	}
 
 	temp_sum_big_integer.big_vector = new std::vector<int>;
 	int limit = pow(10, elem_size);
 
-	//сколько элементов хранит вектор каждого из больших чисел
+	//СЃРєРѕР»СЊРєРѕ СЌР»РµРјРµРЅС‚РѕРІ С…СЂР°РЅРёС‚ РІРµРєС‚РѕСЂ РєР°Р¶РґРѕРіРѕ РёР· Р±РѕР»СЊС€РёС… С‡РёСЃРµР»
 	int size_1 = 0;
 	int size_2 = 0;
 	
@@ -141,60 +141,60 @@ big_integer big_integer::operator+(const big_integer& other) //оператор сложения
 	int exceed_sum = 0;
 	int i = 0;
 
-	while ((i < size_1) || (i < size_2)) //перебрать элементы обоих массивов
+	while ((i < size_1) || (i < size_2)) //РїРµСЂРµР±СЂР°С‚СЊ СЌР»РµРјРµРЅС‚С‹ РѕР±РѕРёС… РјР°СЃСЃРёРІРѕРІ
 	{
 		int sum_1 = 0;
 		int sum_2 = 0;
 
-		if (i < size_1)  //получить элемент первого числа
+		if (i < size_1)  //РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ РїРµСЂРІРѕРіРѕ С‡РёСЃР»Р°
 		{
 			sum_1 = this->big_vector->at(i); // *this->sign;
 		}
 
-		if (i < size_2)  //получить элемент второго числа
+		if (i < size_2)  //РїРѕР»СѓС‡РёС‚СЊ СЌР»РµРјРµРЅС‚ РІС‚РѕСЂРѕРіРѕ С‡РёСЃР»Р°
 		{
 			sum_2 = other.big_vector->at(i); // *other.sign
 		}
 
-		if (((this->sign < 0) && (other.sign < 0)) ||  //оба числа отрицательные 
-			((this->sign > 0) && (other.sign > 0)))   //или оба числа положительные
+		if (((this->sign < 0) && (other.sign < 0)) ||  //РѕР±Р° С‡РёСЃР»Р° РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рµ 
+			((this->sign > 0) && (other.sign > 0)))   //РёР»Рё РѕР±Р° С‡РёСЃР»Р° РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рµ
 		{
 			int temp_sum = abs(sum_1 + sum_2 + exceed_sum);
 
-			//добавить в новый объект сумму слагаемых и перенесенный кусочек от предыдущего сложения
+			//РґРѕР±Р°РІРёС‚СЊ РІ РЅРѕРІС‹Р№ РѕР±СЉРµРєС‚ СЃСѓРјРјСѓ СЃР»Р°РіР°РµРјС‹С… Рё РїРµСЂРµРЅРµСЃРµРЅРЅС‹Р№ РєСѓСЃРѕС‡РµРє РѕС‚ РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃР»РѕР¶РµРЅРёСЏ
 			temp_sum %= limit;
 			temp_sum_big_integer.big_vector->push_back(temp_sum);
 			exceed_sum = (sum_1 + sum_2 + exceed_sum) / limit;
 			
-			//если есть кусочек от предыдущего сложения, его тоже нужно добавить
+			//РµСЃР»Рё РµСЃС‚СЊ РєСѓСЃРѕС‡РµРє РѕС‚ РїСЂРµРґС‹РґСѓС‰РµРіРѕ СЃР»РѕР¶РµРЅРёСЏ, РµРіРѕ С‚РѕР¶Рµ РЅСѓР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ
 			if (exceed_sum > 0)
 			{
 				temp_sum_big_integer.big_vector->push_back(abs(exceed_sum));
 			}
 
 		}
-		else  //одно из чисел отрицательное
+		else  //РѕРґРЅРѕ РёР· С‡РёСЃРµР» РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ
 		{
-			//определить уменьшаемое и вычитаемое
+			//РѕРїСЂРµРґРµР»РёС‚СЊ СѓРјРµРЅСЊС€Р°РµРјРѕРµ Рё РІС‹С‡РёС‚Р°РµРјРѕРµ
 			int reduced = 0;
 			int	subtracted = 0;
 			int temp_exceed_sum = 0;
 
-			if (module_greater(*this, other))//уменьшаемое то, которое больше по молулю
+			if (module_greater(*this, other))//СѓРјРµРЅСЊС€Р°РµРјРѕРµ С‚Рѕ, РєРѕС‚РѕСЂРѕРµ Р±РѕР»СЊС€Рµ РїРѕ РјРѕР»СѓР»СЋ
 			{
-				reduced = sum_1;   //уменьшаемое
-				subtracted = sum_2; //вычитаемое
+				reduced = sum_1;   //СѓРјРµРЅСЊС€Р°РµРјРѕРµ
+				subtracted = sum_2; //РІС‹С‡РёС‚Р°РµРјРѕРµ
 			}
 			else
 			{
-				reduced = sum_2;   //уменьшаемое
-				subtracted = sum_1; //вычитаемое
+				reduced = sum_2;   //СѓРјРµРЅСЊС€Р°РµРјРѕРµ
+				subtracted = sum_1; //РІС‹С‡РёС‚Р°РµРјРѕРµ
 			}
 			
-			if ((reduced - exceed_sum) < subtracted) //вычитаем по одному элементу - если уменьшаемое меньше вычитаемого, забрать один разряд из следующего элемента
+			if ((reduced - exceed_sum) < subtracted) //РІС‹С‡РёС‚Р°РµРј РїРѕ РѕРґРЅРѕРјСѓ СЌР»РµРјРµРЅС‚Сѓ - РµСЃР»Рё СѓРјРµРЅСЊС€Р°РµРјРѕРµ РјРµРЅСЊС€Рµ РІС‹С‡РёС‚Р°РµРјРѕРіРѕ, Р·Р°Р±СЂР°С‚СЊ РѕРґРёРЅ СЂР°Р·СЂСЏРґ РёР· СЃР»РµРґСѓСЋС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р°
 			{
-				reduced += limit; //приписать единицу слева
-				temp_exceed_sum = 1;  //вычесть единицу из следующего элемента 
+				reduced += limit; //РїСЂРёРїРёСЃР°С‚СЊ РµРґРёРЅРёС†Сѓ СЃР»РµРІР°
+				temp_exceed_sum = 1;  //РІС‹С‡РµСЃС‚СЊ РµРґРёРЅРёС†Сѓ РёР· СЃР»РµРґСѓСЋС‰РµРіРѕ СЌР»РµРјРµРЅС‚Р° 
 			}
 
 			int temp_sum = reduced - subtracted - exceed_sum;
@@ -205,18 +205,18 @@ big_integer big_integer::operator+(const big_integer& other) //оператор сложения
 		++i;		
 	}		
 	
-	//определить знак результата
-	if ((this->sign + other.sign) < 0) //если оба знака минус, результат тоже минус
+	//РѕРїСЂРµРґРµР»РёС‚СЊ Р·РЅР°Рє СЂРµР·СѓР»СЊС‚Р°С‚Р°
+	if ((this->sign + other.sign) < 0) //РµСЃР»Рё РѕР±Р° Р·РЅР°РєР° РјРёРЅСѓСЃ, СЂРµР·СѓР»СЊС‚Р°С‚ С‚РѕР¶Рµ РјРёРЅСѓСЃ
 	{
 		temp_sum_big_integer.sign = -1;
 	}
-	else if ((this->sign + other.sign) > 0) //если оба знака плюс, результат тоже плюс
+	else if ((this->sign + other.sign) > 0) //РµСЃР»Рё РѕР±Р° Р·РЅР°РєР° РїР»СЋСЃ, СЂРµР·СѓР»СЊС‚Р°С‚ С‚РѕР¶Рµ РїР»СЋСЃ
 	{
 		temp_sum_big_integer.sign = 1;
 	}
-	else //знаки слагаемых разные
+	else //Р·РЅР°РєРё СЃР»Р°РіР°РµРјС‹С… СЂР°Р·РЅС‹Рµ
 	{
-		//если большее по модулю число отрицательное
+		//РµСЃР»Рё Р±РѕР»СЊС€РµРµ РїРѕ РјРѕРґСѓР»СЋ С‡РёСЃР»Рѕ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ
 		if ((module_greater(*this, other) && (this->sign < 0)) ||
 			(module_greater(other, *this)) && (other.sign < 0))
 		{
@@ -228,7 +228,7 @@ big_integer big_integer::operator+(const big_integer& other) //оператор сложения
 		}
 	}
 	
-	//почистить лишние разряды слева - все, равное 0
+	//РїРѕС‡РёСЃС‚РёС‚СЊ Р»РёС€РЅРёРµ СЂР°Р·СЂСЏРґС‹ СЃР»РµРІР° - РІСЃРµ, СЂР°РІРЅРѕРµ 0
 	while (temp_sum_big_integer.big_vector->back() == 0)
 	{
 		std::vector<int>::iterator it = temp_sum_big_integer.big_vector->end() - 1;
@@ -238,25 +238,25 @@ big_integer big_integer::operator+(const big_integer& other) //оператор сложения
 	return temp_sum_big_integer; 
 }
 
-big_integer big_integer::operator-(const big_integer& other) //оператор вычитания
+big_integer big_integer::operator-(const big_integer& other) //РѕРїРµСЂР°С‚РѕСЂ РІС‹С‡РёС‚Р°РЅРёСЏ
 {
-	//std::cout << "оператор вычитания\n";
+	//std::cout << "РѕРїРµСЂР°С‚РѕСЂ РІС‹С‡РёС‚Р°РЅРёСЏ\n";
 	big_integer temp_other(other);
 	temp_other.sign *= -1;
 	return *this + temp_other;
 }
 
 
-big_integer big_integer::operator*(const int& other) //оператор умножения
+big_integer big_integer::operator*(const int& other) //РѕРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ
 {
 	
-	//std::cout << "оператор умножения\n";
+	//std::cout << "РѕРїРµСЂР°С‚РѕСЂ СѓРјРЅРѕР¶РµРЅРёСЏ\n";
 
 	big_integer temp_mult_big_integer("");
 
 	if (!this->value_is_valid()) 
 	{
-		//нельзя умножать невалидные значение - вернуть результат - тоже невалидное значение
+		//РЅРµР»СЊР·СЏ СѓРјРЅРѕР¶Р°С‚СЊ РЅРµРІР°Р»РёРґРЅС‹Рµ Р·РЅР°С‡РµРЅРёРµ - РІРµСЂРЅСѓС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ - С‚РѕР¶Рµ РЅРµРІР°Р»РёРґРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
 		return temp_mult_big_integer;
 	}
 
@@ -274,7 +274,7 @@ big_integer big_integer::operator*(const int& other) //оператор умножения
 
 	temp_sign *= this->sign;
 	int exceed_value = 0;
-	for (int i = 0; i < this->get_size(); ++i) //перемножить каждый элемент
+	for (int i = 0; i < this->get_size(); ++i) //РїРµСЂРµРјРЅРѕР¶РёС‚СЊ РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚
 	{
 		
 		int temp_value = big_vector->at(i) * mult;
@@ -290,7 +290,7 @@ big_integer big_integer::operator*(const int& other) //оператор умножения
 		temp_mult_big_integer.big_vector->push_back(exceed_value);
 	}
 		
-	//почистить лишние разряды слева - все, равное 0
+	//РїРѕС‡РёСЃС‚РёС‚СЊ Р»РёС€РЅРёРµ СЂР°Р·СЂСЏРґС‹ СЃР»РµРІР° - РІСЃРµ, СЂР°РІРЅРѕРµ 0
 	while (temp_mult_big_integer.big_vector->back() == 0)
 	{
 		std::vector<int>::iterator it = temp_mult_big_integer.big_vector->end() - 1;
@@ -302,28 +302,28 @@ big_integer big_integer::operator*(const int& other) //оператор умножения
 	return temp_mult_big_integer;
 }
 
-bool big_integer::module_greater(const big_integer& first, const big_integer& second) //сравнение чисел по модулю
+bool big_integer::module_greater(const big_integer& first, const big_integer& second) //СЃСЂР°РІРЅРµРЅРёРµ С‡РёСЃРµР» РїРѕ РјРѕРґСѓР»СЋ
 {
-	if ((!first.value_is_valid()) || (!second.value_is_valid())) //нельзя сравнивать невалидные числа
+	if ((!first.value_is_valid()) || (!second.value_is_valid())) //РЅРµР»СЊР·СЏ СЃСЂР°РІРЅРёРІР°С‚СЊ РЅРµРІР°Р»РёРґРЅС‹Рµ С‡РёСЃР»Р°
 	{
 		return false;
 	}
 	
-	if (first.get_size() > second.get_size()) //это число имеет больше разрядов, чем other
+	if (first.get_size() > second.get_size()) //СЌС‚Рѕ С‡РёСЃР»Рѕ РёРјРµРµС‚ Р±РѕР»СЊС€Рµ СЂР°Р·СЂСЏРґРѕРІ, С‡РµРј other
 	{
 		return true;
 	}
-	else if (first.get_size() < second.get_size()) //это число имеет меньше разрядов, чем other
+	else if (first.get_size() < second.get_size()) //СЌС‚Рѕ С‡РёСЃР»Рѕ РёРјРµРµС‚ РјРµРЅСЊС€Рµ СЂР°Р·СЂСЏРґРѕРІ, С‡РµРј other
 	{
 		return false;
 	}
-	else //количество разрядов (и элементов) равно
+	else //РєРѕР»РёС‡РµСЃС‚РІРѕ СЂР°Р·СЂСЏРґРѕРІ (Рё СЌР»РµРјРµРЅС‚РѕРІ) СЂР°РІРЅРѕ
 	{
-		return first.big_vector->back() > second.big_vector->back(); //нужно сравнить старшие разряды (элементы)
+		return first.big_vector->back() > second.big_vector->back(); //РЅСѓР¶РЅРѕ СЃСЂР°РІРЅРёС‚СЊ СЃС‚Р°СЂС€РёРµ СЂР°Р·СЂСЏРґС‹ (СЌР»РµРјРµРЅС‚С‹)
 	}
 }
 
-bool big_integer::value_is_valid() const // = true; //поле принимает значение false, если число не валидно
+bool big_integer::value_is_valid() const // = true; //РїРѕР»Рµ РїСЂРёРЅРёРјР°РµС‚ Р·РЅР°С‡РµРЅРёРµ false, РµСЃР»Рё С‡РёСЃР»Рѕ РЅРµ РІР°Р»РёРґРЅРѕ
 {
 	if ((this->big_vector == nullptr) ||
 		(this->big_vector->size() == 0))
@@ -368,7 +368,7 @@ int big_integer::get_size() const
 //}
 
 
-//вывод большого числа
+//РІС‹РІРѕРґ Р±РѕР»СЊС€РѕРіРѕ С‡РёСЃР»Р°
 std::ostream& operator<<(std::ostream& os, const big_integer& my_big_int)
 {
 	if ((my_big_int.big_vector == nullptr) ||
@@ -384,8 +384,8 @@ std::ostream& operator<<(std::ostream& os, const big_integer& my_big_int)
 	{
 		std::string temp_str = std::to_string(my_big_int.big_vector->at(i));		
 
-		//дополнить нулями до блока
-		if (i != my_big_int.big_vector->size() - 1)  //кроме старшего разряда
+		//РґРѕРїРѕР»РЅРёС‚СЊ РЅСѓР»СЏРјРё РґРѕ Р±Р»РѕРєР°
+		if (i != my_big_int.big_vector->size() - 1)  //РєСЂРѕРјРµ СЃС‚Р°СЂС€РµРіРѕ СЂР°Р·СЂСЏРґР°
 		{
 			int temp = my_big_int.elem_size - temp_str.size();
 			while (temp_str.size() <= temp)
