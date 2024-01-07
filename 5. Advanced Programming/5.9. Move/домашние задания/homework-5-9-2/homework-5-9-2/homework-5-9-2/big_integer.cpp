@@ -7,15 +7,15 @@
 big_integer::big_integer(std::string value_str)
 {
 	//std::cout << "обычный конструктор \n";
-	big_vector = new std::vector<int>;
-		
+			
 	if (value_str.size() == 0)
 	{
-		delete big_vector;
 		big_vector = nullptr;
 		return;
 	}
-	
+
+	big_vector = new std::vector<int>;
+
 	//знаком минус может быть только первый элемент
 	int start_index = 0;
 	
@@ -81,7 +81,7 @@ big_integer::big_integer(const big_integer& other)  //конструктор к�
 
 
 
-big_integer::big_integer(big_integer&& other)	// конструктор перемещения
+big_integer::big_integer(big_integer&& other) noexcept	// конструктор перемещения
 {
 	//std::cout << "конструктор  перемещения\n";
 
@@ -110,7 +110,7 @@ big_integer& big_integer::operator=(const big_integer& other) //оператор
 	return *this;
 }
 
-big_integer& big_integer::operator=(big_integer&& other)       // оператор перемещающего присваивания
+big_integer& big_integer::operator=(big_integer&& other) noexcept       // оператор перемещающего присваивания
 {
 	//std::cout << "оператор перемещающего присваивания\n";
 	return *this = big_integer(other);

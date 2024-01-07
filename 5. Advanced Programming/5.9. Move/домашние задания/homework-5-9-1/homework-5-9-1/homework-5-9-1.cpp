@@ -8,7 +8,8 @@
 template <class T>
 void move_vectors(std::vector<T>& vector_from, std::vector<T>& vector_to)
 {
-    vector_to = (std::vector<T>&&)vector_from;    
+    //vector_to = (std::vector<T>&&)vector_from;    
+    vector_to = std::move(vector_from);
 }
 
 int main()

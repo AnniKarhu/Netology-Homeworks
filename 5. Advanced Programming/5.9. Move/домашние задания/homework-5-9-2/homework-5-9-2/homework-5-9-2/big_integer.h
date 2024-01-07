@@ -14,12 +14,12 @@ public:
 	
 	big_integer(std::string value_str);
 	big_integer(const big_integer& other);//конструктор копирования
-	big_integer(big_integer&& other);	// конструктор перемещения
+	big_integer(big_integer&& other) noexcept;	// конструктор перемещения
 
 	~big_integer();
 	
 	big_integer& operator=(const big_integer& other);  //оператор присваивания 
-	big_integer& operator=(big_integer&& other);       // оператор перемещающего присваивания
+	big_integer& operator=(big_integer&& other) noexcept;       // оператор перемещающего присваивания
 	
 	big_integer operator+(const big_integer& other); //оператор сложения
 	big_integer operator-(const big_integer& other); //оператор вычитания
