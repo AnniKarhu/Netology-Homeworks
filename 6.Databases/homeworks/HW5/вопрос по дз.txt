@@ -1,0 +1,60 @@
+Добрый день!
+
+Я отправляла свой вопрос для разборного вебинара, но преподаватель его не получил или не увидел. Возможно, я слишком поздно отправила вопрос, и он просто не успел вовремя дойти до преподавателя.
+
+Поэтому продублирую здесь.
+
+Описываю класс для работы с базой данный, в котором  объект подключения к базе - указатель на pqxx::connection:
+
+pqxx::connection* connection_ptr = NULL;
+
+Создание подключения:
+connection_ptr = new pqxx::connection(connection_str); //connection_str - строка с параметрами для подключения
+
+В случае проблемы с подключением указатель connection_ptr остается равным NULL.
+
+Далее в программе есть код - добавление записей в таблицу базы данных:
+try
+{
+    my_new_database.test_insert(); //здесь может произойти исключение, если нет подключения к базе и connection_ptr = NULL
+}
+catch (...) // вместо catch(...) можно подставить catch (const std::exception& ex) или catch(pqxx::sql_error e) - результат тот же
+{
+    std::cout << "not inserted" << "\n"; //в этот блок catch программа не попадает - не ясно, почему
+}
+
+
+Функция test_insert:
+void Data_base::test_insert() 
+{
+//при отсутствии подключения здесь происходит исключение - обращение к объекту по указателю NULL
+if  (!(connection_ptr->is_open())) 
+    {
+        return; 
+    }
+
+    try
+    {
+        pqxx::work tx{ *connection_ptr };
+
+        //добавление в таблицу пользователей
+        tx.exec(
+            "insert into users (username, userlastname, email) values "
+            "('User4Name', 'User4LastName', 'User4email'), "
+            "('User5Name', 'User5LastName', 'User5email'), "
+            "('User6Name', 'User6LastName', 'User5email'); ");
+
+        tx.commit();
+
+    }
+    catch (...)
+    {
+        last_error = "Ошибка при добавлении данных"; 
+
+    }
+}
+
+
+Если проверку на подключение к базе перенести в try-catch прямо внутри функции void Data_base::test_insert(), ситуация не меняется - программа падает, исключение блоком catch не ловится. 
+
+Почему в данном случае не срабатывают блоки catch при вызове test_insert()?
