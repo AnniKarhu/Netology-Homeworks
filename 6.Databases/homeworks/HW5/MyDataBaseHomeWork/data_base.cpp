@@ -1,4 +1,4 @@
-#include <map>
+п»ї#include <map>
 #include <algorithm>
 #include <tuple>
 
@@ -12,19 +12,19 @@ Data_base::Data_base(const std::string params_str) noexcept  : connection_str{ p
 
 }
 
-// конструктор перемещения
+// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ
 Data_base::Data_base(Data_base&& other) noexcept : connection_str{ other.connection_str } 	
 {	
-	connection_ptr = other.connection_ptr; //объект подключения
-	last_error = other.last_error;  //описание последней возникшей ошибки
+	connection_ptr = other.connection_ptr; //РѕР±СЉРµРєС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+	last_error = other.last_error;  //РѕРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РІРѕР·РЅРёРєС€РµР№ РѕС€РёР±РєРё
 
 	other.connection_ptr = nullptr;	 
 }
 
-Data_base& Data_base::operator=(Data_base&& other) noexcept   // оператор перемещающего присваивания
+Data_base& Data_base::operator=(Data_base&& other) noexcept   // РѕРїРµСЂР°С‚РѕСЂ РїРµСЂРµРјРµС‰Р°СЋС‰РµРіРѕ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 {
-	connection_ptr = other.connection_ptr; //объект подключения
-	last_error = other.last_error;  //описание последней возникшей ошибки
+	connection_ptr = other.connection_ptr; //РѕР±СЉРµРєС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
+	last_error = other.last_error;  //РѕРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РІРѕР·РЅРёРєС€РµР№ РѕС€РёР±РєРё
 
 	other.connection_ptr = nullptr;	
 	return *this; 
@@ -35,16 +35,16 @@ Data_base::~Data_base()
 	delete connection_ptr;
 }
 
-bool Data_base::connect_db() //выполнить подключение к БД
+bool Data_base::connect_db() //РІС‹РїРѕР»РЅРёС‚СЊ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 {
-	try //при проблеме с подключением выбрасывает исключение
+	try //РїСЂРё РїСЂРѕР±Р»РµРјРµ СЃ РїРѕРґРєР»СЋС‡РµРЅРёРµРј РІС‹Р±СЂР°СЃС‹РІР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ
 	{
 		connection_ptr = new pqxx::connection(connection_str);
 		return true;
 	}
 	catch (const pqxx::sql_error& e)
 	{	
-		//в этот блок не попадаем, все исключения ловит std::exception - почему? 
+		//РІ СЌС‚РѕС‚ Р±Р»РѕРє РЅРµ РїРѕРїР°РґР°РµРј, РІСЃРµ РёСЃРєР»СЋС‡РµРЅРёСЏ Р»РѕРІРёС‚ std::exception - РїРѕС‡РµРјСѓ? 
 		last_error = e.what();
 		return false;
 	}
@@ -55,29 +55,29 @@ bool Data_base::connect_db() //выполнить подключение к БД
 	}
 }
 
-std::string Data_base::get_last_error_desc() //получить описание последней возникшей ошибки
+std::string Data_base::get_last_error_desc() //РїРѕР»СѓС‡РёС‚СЊ РѕРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РІРѕР·РЅРёРєС€РµР№ РѕС€РёР±РєРё
 {
 	return last_error;
 }
 
-void Data_base::print_last_error() //вывести информацию о последней ошибке
+void Data_base::print_last_error() //РІС‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ
 {
 	//SetConsoleCP(CP_UTF8);
 	//SetConsoleOutputCP(CP_UTF8);
 
-	//все равно некоторые ошибки отображаются кракозябрами - вопрос с кодировками при работе с базой остается открытым
+	//РІСЃРµ СЂР°РІРЅРѕ РЅРµРєРѕС‚РѕСЂС‹Рµ РѕС€РёР±РєРё РѕС‚РѕР±СЂР°Р¶Р°СЋС‚СЃСЏ РєСЂР°РєРѕР·СЏР±СЂР°РјРё - РІРѕРїСЂРѕСЃ СЃ РєРѕРґРёСЂРѕРІРєР°РјРё РїСЂРё СЂР°Р±РѕС‚Рµ СЃ Р±Р°Р·РѕР№ РѕСЃС‚Р°РµС‚СЃСЏ РѕС‚РєСЂС‹С‚С‹Рј
 	
-	std::cout << "Последняя ошибка: " << last_error << "\n";
+	std::cout << "РџРѕСЃР»РµРґРЅСЏСЏ РѕС€РёР±РєР°: " << last_error << "\n";
 
 	//SetConsoleOutputCP(1251);
 	//SetConsoleCP(1251);
 }
 
-bool Data_base::create_tables() //создать необходимые таблицы
+bool Data_base::create_tables() //СЃРѕР·РґР°С‚СЊ РЅРµРѕР±С…РѕРґРёРјС‹Рµ С‚Р°Р±Р»РёС†С‹
 {
 	if ((connection_ptr == nullptr) || (!(connection_ptr->is_open())))
 	{
-		last_error = "Ошибка при создании таблиц базы данных - нет подключения к базе данных";
+		last_error = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С… - РЅРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…";
 		return false;
 	}
 
@@ -85,16 +85,16 @@ bool Data_base::create_tables() //создать необходимые таблицы
 	{
 		pqxx::work tx{ *connection_ptr };
 
-		//таблица пользователей
+		//С‚Р°Р±Р»РёС†Р° РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 		tx.exec(
 			"CREATE table IF NOT EXISTS users (id "
 			"serial NOT null primary KEY, "
 			"username text NOT NULL, "
 			"userlastname text NOT NULL, "
 			"email text, "
-			"constraint users_unique unique(username, userlastname, email)); ");  //не UNIQUE - предположим, что почта рабочая или семейная - одной почты могут пользоваться разные люди
+			"constraint users_unique unique(username, userlastname, email)); ");  //РЅРµ UNIQUE - РїСЂРµРґРїРѕР»РѕР¶РёРј, С‡С‚Рѕ РїРѕС‡С‚Р° СЂР°Р±РѕС‡Р°СЏ РёР»Рё СЃРµРјРµР№РЅР°СЏ - РѕРґРЅРѕР№ РїРѕС‡С‚С‹ РјРѕРіСѓС‚ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ СЂР°Р·РЅС‹Рµ Р»СЋРґРё
 
-		//таблица телефонов
+		//С‚Р°Р±Р»РёС†Р° С‚РµР»РµС„РѕРЅРѕРІ
 		tx.exec(
 			"CREATE TABLE IF NOT EXISTS  "
 			"phones(user_id integer references users (id), "
@@ -106,55 +106,55 @@ bool Data_base::create_tables() //создать необходимые таблицы
 	}
 	catch (...)
 	{
-		last_error = "Ошибка при создании таблиц базы данных";
+		last_error = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё С‚Р°Р±Р»РёС† Р±Р°Р·С‹ РґР°РЅРЅС‹С…";
 		return false;
 	}	
 }
 
-bool Data_base::create_templates() //создать шаблоны для работы
+bool Data_base::create_templates() //СЃРѕР·РґР°С‚СЊ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЂР°Р±РѕС‚С‹
 {
 	if ((connection_ptr == nullptr) || (!(connection_ptr->is_open())))
 	{
-		last_error = "Ошибка при создании шаблонов запросов - нет подключения к базе данных";
+		last_error = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё С€Р°Р±Р»РѕРЅРѕРІ Р·Р°РїСЂРѕСЃРѕРІ - РЅРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…";
 		return false;
 	}
 
 	try
 	{
-		//добавление клиента
+		//РґРѕР±Р°РІР»РµРЅРёРµ РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("insert_user", "insert into users (username, userlastname, email) values ($1, $2, $3)");
 
-		//добавление номера телефона
+		//РґРѕР±Р°РІР»РµРЅРёРµ РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅР°
 		connection_ptr->prepare("insert_phone", "insert into phones (user_id, phone) values ($1, $2)");
 
-		//изменение данных клиента
+		//РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("update_user", "update users set username = $2, userlastname = $3, email = $4 where id = $1");
 
-		//удаление телефона клиента
+		//СѓРґР°Р»РµРЅРёРµ С‚РµР»РµС„РѕРЅР° РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("delete_phone", "delete from phones where user_id = $1 and phone = $2");
 
-		//удаление всех телефонов клиента
+		//СѓРґР°Р»РµРЅРёРµ РІСЃРµС… С‚РµР»РµС„РѕРЅРѕРІ РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("delete_user_phones", "delete from phones where user_id = $1");
 
-		//удаление клиента
+		//СѓРґР°Р»РµРЅРёРµ РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("delete_user", "delete from users where id = $1");
 
-		//поиск клиента по его id
+		//РїРѕРёСЃРє РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ id
 		connection_ptr->prepare("search_user_by_id", "select * from users where id = $1");
 
-		//поиск клиента по его имени
+		//РїРѕРёСЃРє РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ РёРјРµРЅРё
 		connection_ptr->prepare("search_user_by_name", "select * from users where username = $1");
 
-		//поиск клиента по его фамилии
+		//РїРѕРёСЃРє РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ С„Р°РјРёР»РёРё
 		connection_ptr->prepare("search_user_by_lastname", "select * from users where userlastname = $1");
 
-		//поиск клиента по его email
+		//РїРѕРёСЃРє РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ email
 		connection_ptr->prepare("search_user_by_email", "select * from users where email = $1");
 
-		//id клиента по его номеру телефона
+		//id РєР»РёРµРЅС‚Р° РїРѕ РµРіРѕ РЅРѕРјРµСЂСѓ С‚РµР»РµС„РѕРЅР°
 		connection_ptr->prepare("search_user_id_by_phone", "select user_id from phones where phone = $1");
 
-		//поиск номера телефона по id клиента
+		//РїРѕРёСЃРє РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅР° РїРѕ id РєР»РёРµРЅС‚Р°
 		connection_ptr->prepare("select_phones_by_id", "select phone from phones where user_id = $1");		
 		
 		return true;
@@ -166,30 +166,30 @@ bool Data_base::create_templates() //создать шаблоны для работы
 	//}
 	catch (...)
 	{
-		last_error = "Ошибка при создании шаблонов запросов";
+		last_error = "РћС€РёР±РєР° РїСЂРё СЃРѕР·РґР°РЅРёРё С€Р°Р±Р»РѕРЅРѕРІ Р·Р°РїСЂРѕСЃРѕРІ";
 		return false;
 	}
 }
 
-//начало работы с базой данных
+//РЅР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…
 bool Data_base::start_db()
 {
 	bool result = false;
 
-	if (connect_db()) //подключиться к базе
+	if (connect_db()) //РїРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ Рє Р±Р°Р·Рµ
 	{
-		result = create_tables() and //создать необходимые таблицы
-				 create_templates(); //создать шаблоны для работы; 
+		result = create_tables() and //СЃРѕР·РґР°С‚СЊ РЅРµРѕР±С…РѕРґРёРјС‹Рµ С‚Р°Р±Р»РёС†С‹
+				 create_templates(); //СЃРѕР·РґР°С‚СЊ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЂР°Р±РѕС‚С‹; 
 	}
 		
 	return result;
 }
 
-void Data_base::test_insert() //убрать после отладки
+void Data_base::test_insert() //СѓР±СЂР°С‚СЊ РїРѕСЃР»Рµ РѕС‚Р»Р°РґРєРё
 {
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…";
 		return; 
 	}
 
@@ -202,7 +202,7 @@ void Data_base::test_insert() //убрать после отладки
 
 		pqxx::work tx{ *connection_ptr };
 
-		//добавление в таблицу пользователей
+		//РґРѕР±Р°РІР»РµРЅРёРµ РІ С‚Р°Р±Р»РёС†Сѓ РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 		tx.exec(
 			"insert into users (username, userlastname, email) values "
 			"('User4Name', 'User4LastName', 'User4email'), "
@@ -217,18 +217,18 @@ void Data_base::test_insert() //убрать после отладки
 	}
 	catch (...)
 	{
-		last_error = "Ошибка при добавлении данных";		
+		last_error = "РћС€РёР±РєР° РїСЂРё РґРѕР±Р°РІР»РµРЅРёРё РґР°РЅРЅС‹С…";		
 	}
 }
 
-/*взаимодействие пользователя с базой данных*/
+/*РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…*/
 
-//добавить нового пользователя
+//РґРѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 bool Data_base::add_new_user(std::string UserName, std::string UserLastName, std::string UserEmail) 
 {
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…";
 		return false;
 	}
 	
@@ -248,46 +248,46 @@ bool Data_base::add_new_user(std::string UserName, std::string UserLastName, std
 	}
 }
 
-//поиск клиентов по произвольной строке - имя, фамилия, email, телефон
+//РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕР№ СЃС‚СЂРѕРєРµ - РёРјСЏ, С„Р°РјРёР»РёСЏ, email, С‚РµР»РµС„РѕРЅ
 std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_users_list_by_string(std::string DefaultStr)
 {
-	//все записи с совпадением по имени
+	//РІСЃРµ Р·Р°РїРёСЃРё СЃ СЃРѕРІРїР°РґРµРЅРёРµРј РїРѕ РёРјРµРЅРё
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map_name;
 	result_map_name = get_users_list_by_name(DefaultStr);
 	
-	//все записи с совпадением по фамилии
+	//РІСЃРµ Р·Р°РїРёСЃРё СЃ СЃРѕРІРїР°РґРµРЅРёРµРј РїРѕ С„Р°РјРёР»РёРё
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map_lastname;
 	result_map_lastname = get_users_list_by_lastname(DefaultStr);
 	
-	//все записи с совпадением по email
+	//РІСЃРµ Р·Р°РїРёСЃРё СЃ СЃРѕРІРїР°РґРµРЅРёРµРј РїРѕ email
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map_email;
 	result_map_email = get_users_list_by_email(DefaultStr);
 	
-	//пользователь с совпадением по телефону
+	//РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ СЃРѕРІРїР°РґРµРЅРёРµРј РїРѕ С‚РµР»РµС„РѕРЅСѓ
 	std::tuple<int, std::string, std::string, std::string> result_tuple_phone;
 	int res_id = get_user_id_by_phone(DefaultStr);	 
 	result_tuple_phone = get_user_by_id(res_id);
 	
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map;
 
-	//объединить полученные мапы
+	//РѕР±СЉРµРґРёРЅРёС‚СЊ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РјР°РїС‹
 	std::merge(result_map_name.begin(), result_map_name.end(), result_map_lastname.begin(), result_map_lastname.end(), std::inserter(result_map, result_map.begin()));
 	std::merge(result_map.begin(), result_map.end(), result_map_email.begin(), result_map_email.end(), std::inserter(result_map, result_map.begin()));
 	result_map[std::get<0>(result_tuple_phone)] = std::make_tuple(std::get<1>(result_tuple_phone), std::get<2>(result_tuple_phone), std::get<3>(result_tuple_phone));
 
-	//удалить из результата вариант с id=-1, если он там есть
+	//СѓРґР°Р»РёС‚СЊ РёР· СЂРµР·СѓР»СЊС‚Р°С‚Р° РІР°СЂРёР°РЅС‚ СЃ id=-1, РµСЃР»Рё РѕРЅ С‚Р°Рј РµСЃС‚СЊ
 	result_map.erase(-1);
 
 	return result_map;
 }
  
-//все пользователи с заданным именем
+//РІСЃРµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ Р·Р°РґР°РЅРЅС‹Рј РёРјРµРЅРµРј
 std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_users_list_by_name(std::string UserName) 
 {	
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map;
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return result_map;
 	}
 
@@ -312,13 +312,13 @@ std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_
 	return result_map;		
 }
 
-//все пользователи с заданной фамилией
+//РІСЃРµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ Р·Р°РґР°РЅРЅРѕР№ С„Р°РјРёР»РёРµР№
 std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_users_list_by_lastname(std::string UserLastName)
 {
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map;
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return result_map;
 	}
 
@@ -343,13 +343,13 @@ std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_
 	return result_map;
 }
 
-//все пользователи с заданным email
+//РІСЃРµ РїРѕР»СЊР·РѕРІР°С‚РµР»Рё СЃ Р·Р°РґР°РЅРЅС‹Рј email
 std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_users_list_by_email(std::string UserEmail)
 {	
 	std::map<int, std::tuple<std::string, std::string, std::string>> result_map;
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return result_map;
 	}
 
@@ -374,12 +374,12 @@ std::map<int, std::tuple<std::string, std::string, std::string>> Data_base::get_
 	return result_map;
 }
 
-// id клиента с заданным телефоном
+// id РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј С‚РµР»РµС„РѕРЅРѕРј
 int Data_base::get_user_id_by_phone(std::string UserPhone)
 {
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return -1;
 	}
 
@@ -396,7 +396,7 @@ int Data_base::get_user_id_by_phone(std::string UserPhone)
 
 		auto row = query_res.begin();
 		int res_int = row["user_id"].as<int>();
-		return res_int; //вернуть первый (он же должен быть и единственным) результат
+		return res_int; //РІРµСЂРЅСѓС‚СЊ РїРµСЂРІС‹Р№ (РѕРЅ Р¶Рµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј) СЂРµР·СѓР»СЊС‚Р°С‚
 	}
 	catch (const std::exception& ex)
 	{
@@ -405,13 +405,13 @@ int Data_base::get_user_id_by_phone(std::string UserPhone)
 	}	
 }
 
-//получить информацию о клиенте по его id	
+//РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєР»РёРµРЅС‚Рµ РїРѕ РµРіРѕ id	
 std::tuple<int, std::string, std::string, std::string> Data_base::get_user_by_id(int UserId)
 {
 	auto temp_tuple = std::make_tuple(-1, "", "", "");
 	if (connection_ptr == nullptr)
 	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return temp_tuple;
 	}
 
@@ -422,14 +422,14 @@ std::tuple<int, std::string, std::string, std::string> Data_base::get_user_by_id
 
 		auto query_res = tx.exec_prepared("search_user_by_id", UserId);	
 
-		if (query_res.empty()) //|| //пустой результат
-		//	(query_res.size() > 1)) //больше одной строки результат - значит, в базе  некорректные данные
+		if (query_res.empty()) //|| //РїСѓСЃС‚РѕР№ СЂРµР·СѓР»СЊС‚Р°С‚
+		//	(query_res.size() > 1)) //Р±РѕР»СЊС€Рµ РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё СЂРµР·СѓР»СЊС‚Р°С‚ - Р·РЅР°С‡РёС‚, РІ Р±Р°Р·Рµ  РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ
 		{
 			return temp_tuple;
 		}
 		auto row = query_res.begin();
 		auto result_tuple = std::make_tuple(row["id"].as<int>(), row["username"].as<std::string>(), row["userlastname"].as<std::string>(), row["email"].as<std::string>());
-		return result_tuple; //вернуть первый (он же должен быть и единственным) результат	
+		return result_tuple; //РІРµСЂРЅСѓС‚СЊ РїРµСЂРІС‹Р№ (РѕРЅ Р¶Рµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ Рё РµРґРёРЅСЃС‚РІРµРЅРЅС‹Рј) СЂРµР·СѓР»СЊС‚Р°С‚	
 	}
 	catch (const std::exception& ex)
 	{
@@ -438,13 +438,13 @@ std::tuple<int, std::string, std::string, std::string> Data_base::get_user_by_id
 	}	
 }
 
-//получить список номеров телефонов по id клиента
+//РїРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РЅРѕРјРµСЂРѕРІ С‚РµР»РµС„РѕРЅРѕРІ РїРѕ id РєР»РёРµРЅС‚Р°
 std::vector<std::string> Data_base::get_phones_list_by_user_id(int UserId)
 {
 	std::vector<std::string> phones_vector;	  
 
 	if (connection_ptr == nullptr)	{
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return  phones_vector;		
 	}
 
@@ -467,12 +467,12 @@ std::vector<std::string> Data_base::get_phones_list_by_user_id(int UserId)
 	return  phones_vector;
 }
 
-//добавление телефона пользователю с известным id
+//РґРѕР±Р°РІР»РµРЅРёРµ С‚РµР»РµС„РѕРЅР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ СЃ РёР·РІРµСЃС‚РЅС‹Рј id
 bool Data_base::add_user_phone(int user_id, std::string user_phone)
 {
 	bool result = false;
 	if (connection_ptr == nullptr) {
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return  false;
 	}
 
@@ -493,12 +493,12 @@ bool Data_base::add_user_phone(int user_id, std::string user_phone)
 	return result;	
 }
 
-//изменение данных пользователя с заданным id
+//РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ Р·Р°РґР°РЅРЅС‹Рј id
 bool Data_base::update_user_data(int user_id, std::string new_name, std::string new_lastname, std::string new_email)
 {
 	bool result = false;
 	if (connection_ptr == nullptr) {
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return  false;
 	}
 
@@ -519,12 +519,12 @@ bool Data_base::update_user_data(int user_id, std::string new_name, std::string 
 	return result;	
 }
 
-//удаление известного номера телефона  клиента с заданным id
+//СѓРґР°Р»РµРЅРёРµ РёР·РІРµСЃС‚РЅРѕРіРѕ РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅР°  РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј id
 bool Data_base::delete_user_phone(int user_id, std::string user_phone)
 {
 	bool result = false;
 	if (connection_ptr == nullptr) {
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return  false;
 	}
 
@@ -545,12 +545,12 @@ bool Data_base::delete_user_phone(int user_id, std::string user_phone)
 	return result;
 }
 
-//удалить  клиента с заданным id
+//СѓРґР°Р»РёС‚СЊ  РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј id
 bool Data_base::delete_user(int user_id)
 {
 	bool result = false;
 	if (connection_ptr == nullptr) {
-		last_error = "Нет подключения к базе  данных";
+		last_error = "РќРµС‚ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ  РґР°РЅРЅС‹С…";
 		return  false;
 	}
 
@@ -558,8 +558,8 @@ bool Data_base::delete_user(int user_id)
 	try
 	{
 		pqxx::work tx{ *connection_ptr };
-		tx.exec_prepared("delete_user_phones", user_id); //удаление всех номеров телефонов
-		tx.exec_prepared("delete_user", user_id); //удаление записи о клиенте
+		tx.exec_prepared("delete_user_phones", user_id); //СѓРґР°Р»РµРЅРёРµ РІСЃРµС… РЅРѕРјРµСЂРѕРІ С‚РµР»РµС„РѕРЅРѕРІ
+		tx.exec_prepared("delete_user", user_id); //СѓРґР°Р»РµРЅРёРµ Р·Р°РїРёСЃРё Рѕ РєР»РёРµРЅС‚Рµ
 		tx.commit();
 		result = true;
 	}

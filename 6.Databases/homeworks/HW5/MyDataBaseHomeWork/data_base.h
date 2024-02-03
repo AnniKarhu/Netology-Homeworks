@@ -1,74 +1,74 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <pqxx/pqxx> 
 
 class Data_base
 {
 private:
-	const std::string connection_str; //строка параметров для подключения
+	const std::string connection_str; //СЃС‚СЂРѕРєР° РїР°СЂР°РјРµС‚СЂРѕРІ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ
 	pqxx::connection* connection_ptr = NULL;
-	std::string last_error; //описание последней возникшей ошибки
-	bool connect_db(); //выполнить подключение к БД
-	bool create_tables(); //создать необходимые таблицы
-	bool create_templates(); //создать шаблоны для работы
+	std::string last_error; //РѕРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РІРѕР·РЅРёРєС€РµР№ РѕС€РёР±РєРё
+	bool connect_db(); //РІС‹РїРѕР»РЅРёС‚СЊ РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
+	bool create_tables(); //СЃРѕР·РґР°С‚СЊ РЅРµРѕР±С…РѕРґРёРјС‹Рµ С‚Р°Р±Р»РёС†С‹
+	bool create_templates(); //СЃРѕР·РґР°С‚СЊ С€Р°Р±Р»РѕРЅС‹ РґР»СЏ СЂР°Р±РѕС‚С‹
 
 public:
 
 	explicit Data_base(const std::string params_str)  noexcept;
 	
-	bool start_db(); //начало работы с базой данных
-	std::string get_last_error_desc(); //получить описание последней возникшей ошибки
-	void print_last_error(); //вывести информацию о последней ошибке
+	bool start_db(); //РЅР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…
+	std::string get_last_error_desc(); //РїРѕР»СѓС‡РёС‚СЊ РѕРїРёСЃР°РЅРёРµ РїРѕСЃР»РµРґРЅРµР№ РІРѕР·РЅРёРєС€РµР№ РѕС€РёР±РєРё
+	void print_last_error(); //РІС‹РІРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РїРѕСЃР»РµРґРЅРµР№ РѕС€РёР±РєРµ
 
-	void test_insert(); //убрать после отладки
+	void test_insert(); //СѓР±СЂР°С‚СЊ РїРѕСЃР»Рµ РѕС‚Р»Р°РґРєРё
 
-	Data_base(const Data_base& other) = delete; //конструктор копирования
-	Data_base(Data_base&& other) noexcept;	// конструктор перемещения
-	Data_base& operator=(const Data_base& other) = delete;  //оператор присваивания 
-	Data_base& operator=(Data_base&& other) noexcept;       // оператор перемещающего присваивания
+	Data_base(const Data_base& other) = delete; //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	Data_base(Data_base&& other) noexcept;	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРјРµС‰РµРЅРёСЏ
+	Data_base& operator=(const Data_base& other) = delete;  //РѕРїРµСЂР°С‚РѕСЂ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ 
+	Data_base& operator=(Data_base&& other) noexcept;       // РѕРїРµСЂР°С‚РѕСЂ РїРµСЂРµРјРµС‰Р°СЋС‰РµРіРѕ РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 	~Data_base();	
 
-	/*взаимодействие пользователя с базой данных*/	
+	/*РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ Р±Р°Р·РѕР№ РґР°РЅРЅС‹С…*/	
 
-	/*информация о клиенте*/
+	/*РёРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєР»РёРµРЅС‚Рµ*/
 
-	//получить информацию о клиенте по его id	
+	//РїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєР»РёРµРЅС‚Рµ РїРѕ РµРіРѕ id	
 	std::tuple<int, std::string, std::string, std::string> get_user_by_id(int UserId); 
 	
-	//получить список номеров телефонов по id клиента
+	//РїРѕР»СѓС‡РёС‚СЊ СЃРїРёСЃРѕРє РЅРѕРјРµСЂРѕРІ С‚РµР»РµС„РѕРЅРѕРІ РїРѕ id РєР»РёРµРЅС‚Р°
 	std::vector<std::string> get_phones_list_by_user_id(int UserId); 
 	
-	//поиск клиентов по произвольной строке - имя, фамилия, email, телефон	
+	//РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ РїРѕ РїСЂРѕРёР·РІРѕР»СЊРЅРѕР№ СЃС‚СЂРѕРєРµ - РёРјСЏ, С„Р°РјРёР»РёСЏ, email, С‚РµР»РµС„РѕРЅ	
 	std::map<int, std::tuple<std::string, std::string, std::string>> get_users_list_by_string(std::string DefaultStr);
 	
-	//поиск клиентов с заданным именем	
+	//РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ СЃ Р·Р°РґР°РЅРЅС‹Рј РёРјРµРЅРµРј	
 	std::map<int, std::tuple<std::string, std::string, std::string>> get_users_list_by_name(std::string UserName); 
 	
-	//поиск клиентов с заданной фамилией
+	//РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ СЃ Р·Р°РґР°РЅРЅРѕР№ С„Р°РјРёР»РёРµР№
 	std::map<int, std::tuple<std::string, std::string, std::string>> get_users_list_by_lastname(std::string UserLastName);
 	
-	//поиск клиентов с заданным email	
+	//РїРѕРёСЃРє РєР»РёРµРЅС‚РѕРІ СЃ Р·Р°РґР°РЅРЅС‹Рј email	
 	std::map<int, std::tuple<std::string, std::string, std::string>> get_users_list_by_email(std::string UserEmail); 
 	
-	//поиск id клиента с заданным телефоном
+	//РїРѕРёСЃРє id РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј С‚РµР»РµС„РѕРЅРѕРј
 	int get_user_id_by_phone(std::string UserPhone);
 
-	/*добавить или изменить информацию о клиенте*/
+	/*РґРѕР±Р°РІРёС‚СЊ РёР»Рё РёР·РјРµРЅРёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєР»РёРµРЅС‚Рµ*/
 
-	//добавить нового клиента
+	//РґРѕР±Р°РІРёС‚СЊ РЅРѕРІРѕРіРѕ РєР»РёРµРЅС‚Р°
 	bool add_new_user(std::string UserName, std::string UserLastName, std::string UserEmail); 
 
-	//добавление телефона клиента с известным id
+	//РґРѕР±Р°РІР»РµРЅРёРµ С‚РµР»РµС„РѕРЅР° РєР»РёРµРЅС‚Р° СЃ РёР·РІРµСЃС‚РЅС‹Рј id
 	bool add_user_phone(int user_id, std::string user_phone);
 
-	//изменение данных клиента с заданным id
+	//РёР·РјРµРЅРµРЅРёРµ РґР°РЅРЅС‹С… РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј id
 	bool update_user_data(int user_id, std::string new_name, std::string new_lastname, std::string new_email);
 
-	/*удаление информации о клиенте*/
+	/*СѓРґР°Р»РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєР»РёРµРЅС‚Рµ*/
 
-	//удаление известного номера телефона  клиента с заданным id
+	//СѓРґР°Р»РµРЅРёРµ РёР·РІРµСЃС‚РЅРѕРіРѕ РЅРѕРјРµСЂР° С‚РµР»РµС„РѕРЅР°  РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј id
 	bool delete_user_phone(int user_id, std::string user_phone);
 
-	//удалить  клиента с заданным id
+	//СѓРґР°Р»РёС‚СЊ  РєР»РёРµРЅС‚Р° СЃ Р·Р°РґР°РЅРЅС‹Рј id
 	bool delete_user(int user_id);
 };
