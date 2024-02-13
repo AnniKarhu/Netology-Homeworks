@@ -16,8 +16,8 @@ int main()
 {
     setlocale(LC_ALL, "rus");
 
-    std::cout << "Количество аппаратных ядер - " << std::thread::hardware_concurrency() << "\n";
-    std::cout << "\t\t10\t\t100\t\t1000\t\t10000\t\t100000\t\t1000000\n";
+   // std::cout << "Количество аппаратных ядер - " << std::thread::hardware_concurrency() << "\n";
+   // std::cout << "\t\t10\t\t100\t\t1000\t\t10000\t\t100000\t\t1000000\n";
     
     int threads_count = 1;
     const int start_vector_size = 10;
@@ -31,7 +31,7 @@ int main()
 
     while (threads_count <= 16)
     {
-      std::cout << "\n" << threads_count << " потоков: \t";        
+        if (threads_count > 1) { std::cout << "\n" << threads_count << " потоков: \t"; }
       while (vector_size <= max_vector_size)
       {
           std::vector<int> vector_result(vector_size, 0);
@@ -121,10 +121,10 @@ int main()
 
 void test_func(std::vector<int>& vec_1, std::vector<int>& vec_2, int limit_min, int limit_max, std::vector<int>& vec_res)
 {
-  //  std::call_once(flag, []() {  
-  //      std::cout << "Количество аппаратных ядер - " << std::thread::hardware_concurrency() << "\n";  
-  //      std::cout << "\t\t10\t\t100\t\t1000\t\t10000\t\t100000\t\t1000000\n1 поток:\t";
-  //      });
+    std::call_once(flag, []() {  
+        std::cout << "Количество аппаратных ядер - " << std::thread::hardware_concurrency() << "\n";  
+        std::cout << "\t\t10\t\t100\t\t1000\t\t10000\t\t100000\t\t1000000\n1 поток:\t";
+        });
    
     
     for (int i = limit_min; i <= limit_max; ++i)
