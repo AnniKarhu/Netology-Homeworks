@@ -26,7 +26,7 @@ int main()
 
     std::vector<int> vector_1;
     std::vector<int> vector_2;
-    std::vector<int> vector_result;
+   // std::vector<int> vector_result;
     std::vector<std::thread> threads_vector; 
 
     while (threads_count <= 16)
@@ -34,10 +34,12 @@ int main()
       std::cout << "\n" << threads_count << " потоков: \t";        
       while (vector_size <= max_vector_size)
       {
+          std::vector<int> vector_result(vector_size, 0);
+          
         for (int i = 0; i < vector_size; ++i)
         {
             vector_1.push_back(i);
-            vector_2.push_back(i);
+            vector_2.push_back(i);           
         }
 
         int limit_min = 0;
@@ -127,7 +129,7 @@ void test_func(std::vector<int>& vec_1, std::vector<int>& vec_2, int limit_min, 
     
     for (int i = limit_min; i <= limit_max; ++i)
     { 
-        vec_res.push_back(vec_1[i] + vec_2[i]);
+        vec_res[i] = vec_1[i] + vec_2[i];
     }
 
 }
