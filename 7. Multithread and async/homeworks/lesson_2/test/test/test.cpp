@@ -36,7 +36,7 @@ void deadlock_func_2()
     cout << "Never print B" << endl;
 }
 
-int main_m3()
+int main()
 {
     setlocale(LC_ALL, "Russian");
     thread t1(deadlock_func_1);
