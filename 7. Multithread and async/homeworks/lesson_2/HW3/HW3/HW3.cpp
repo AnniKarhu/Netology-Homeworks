@@ -53,8 +53,14 @@ int main()
 
 void swap_data1(Data& data_1, Data& data_2)
 {
-    data_1.data_mutex.lock();
-    data_2.data_mutex.lock();
+    
+    
+    std::lock(data_1.data_mutex, data_2.data_mutex);
+    std::lock_guard lk1(data_1.data_mutex, std::adopt_lock);
+    std::lock_guard lk2(data_2.data_mutex, std::adopt_lock);
+
+   // data_1.data_mutex.lock();
+   // data_2.data_mutex.lock();
 
     int temp_int = data_1.int_value;
     data_1.int_value = data_2.int_value;
@@ -64,8 +70,9 @@ void swap_data1(Data& data_1, Data& data_2)
     data_1.str_value = data_2.str_value;
     data_2.str_value = temp_str;
 
-    data_1.data_mutex.unlock();
-    data_2.data_mutex.unlock();
+    
+   // data_1.data_mutex.unlock();
+  //  data_2.data_mutex.unlock();
 }
 
 
