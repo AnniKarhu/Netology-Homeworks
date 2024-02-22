@@ -15,12 +15,8 @@
 
 void fill_unordered_list(std::vector<int>& src_vector); //заполнить массив случайными числами
 void print_list(const std::vector<int>& src_vector);    //вывести значения на экран
-//int get_min_value(const std::vector<int>& src_vector, int pos);  //найти минимальный элемент
-int get_min_value_index(const std::vector<int>& src_vector, int pos);  //найти индекс минимального элемента
-void get_min_value_index2(const std::vector<int>& src_vector, int pos, std::promise<int> prom);  //найти индекс минимального элемента
-
+void get_min_value_index(const std::vector<int>& src_vector, int pos, std::promise<int> prom);  //найти индекс минимального элемента
 void sort_list(std::vector<int>& src_vector); //Сортировка выбором
-void sort_list2(std::vector<int>& src_vector); //Сортировка выбором
 
 
 int main()
@@ -28,7 +24,7 @@ int main()
     std::vector<int> new_vector(100);
     fill_unordered_list(new_vector);
     print_list(new_vector);
-    sort_list2(new_vector); //Сортировка выбором
+    sort_list(new_vector); //Сортировка выбором
     print_list(new_vector);
 }
 
@@ -58,68 +54,10 @@ void print_list(const std::vector<int>& src_vector)
     std::cout << "\n";
 }
 
-//найти минимальный элемент
-//pos - номер позиции, от которой нужно начинать искать - до конца массива
-//int get_min_value(const std::vector<int>& src_vector, int pos)  
-//{
-//    int l_size = src_vector.size();
-//    if (pos >=  l_size) return 0;
-//        
-//    int min_value = src_vector[pos];
-//    for (int i = 0; i + pos < l_size; ++i)
-//    {
-//        if (src_vector[i + pos] < min_value)
-//        {
-//            min_value = src_vector[i + pos];
-//        }
-//    }
-//
-//    return min_value;
-//}
 
 //найти индекс минимального элемента
 //pos - номер позиции, от которой нужно начинать искать - до конца массива
-int get_min_value_index(const std::vector<int>& src_vector, int pos)
-{
-    int l_size = src_vector.size();
-    if (pos >= l_size) return 0;
-
-    int min_value_index = pos;
-    for (int i = 0; i + pos < l_size; ++i)
-    {
-        if (src_vector[i + pos] < src_vector[min_value_index])
-        {
-            min_value_index = i + pos;
-        }
-    }
-
-    return min_value_index;
-}
-
-
-//Сортировка выбором
-void sort_list(std::vector<int>& src_vector)
-{
-    if (src_vector.empty()) return;
-    
-    int pos = 0;
-
-    while (pos < src_vector.size())
-    {
-        std::promise<int> prom;
-        std::future<int> ft = prom.get_future();
-        
-        int new_index = get_min_value_index(src_vector, pos);
-        std::swap(src_vector[pos], src_vector[new_index]);        
-
-        ++pos;
-    }
-}
-
-
-//найти индекс минимального элемента
-//pos - номер позиции, от которой нужно начинать искать - до конца массива
-void get_min_value_index2(const std::vector<int>& src_vector, int pos, std::promise<int> prom)
+void get_min_value_index(const std::vector<int>& src_vector, int pos, std::promise<int> prom)
 {
     int l_size = src_vector.size();
     if (pos >= l_size)
@@ -142,7 +80,7 @@ void get_min_value_index2(const std::vector<int>& src_vector, int pos, std::prom
 }
 
 //Сортировка выбором
-void sort_list2(std::vector<int>& src_vector)
+void sort_list(std::vector<int>& src_vector)
 {
     if (src_vector.empty()) return;
 
@@ -152,7 +90,7 @@ void sort_list2(std::vector<int>& src_vector)
     {
         std::promise<int> prom;
         std::future<int> ft_prom = prom.get_future();
-        auto fut = std::async(get_min_value_index2, src_vector, pos, std::move(prom));
+        auto fut = std::async(get_min_value_index, src_vector, pos, std::move(prom));
 
         int new_index = ft_prom.get();
         std::swap(src_vector[pos], src_vector[new_index]);
