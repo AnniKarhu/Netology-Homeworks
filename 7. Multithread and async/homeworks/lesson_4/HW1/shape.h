@@ -2,6 +2,9 @@
 #include<string>
 class Shape
 {
+private:
+	void calculate_square_and_volume();
+	
 public:
 	static const int line = 0;
 	static const int sqr = 1;
