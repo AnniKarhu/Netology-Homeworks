@@ -75,19 +75,19 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		
 		Shape shape_sqr2 = trfrm_shape_sqr.scaleX(scale_a);
 		CHECK(shape_sqr2.volume == 0);
-		CHECK(shape_sqr2.square == 25);
+		CHECK(shape_sqr2.square == 50);
 
 		Shape shape_sqr3 = trfrm_shape_sqr.scaleY(scale_d);
 		CHECK(shape_sqr3.volume == 0);
-		CHECK(shape_sqr3.square == 25);
+		CHECK(shape_sqr3.square == 150);
 		
 		Shape shape_sqr4 = trfrm_shape_sqr.scaleZ(scale_e);
 		CHECK(shape_sqr4.volume == 0);
-		CHECK(shape_sqr4.square == 25);
+		CHECK(shape_sqr4.square == 150);
 
 		Shape shape_sqr5 = trfrm_shape_sqr.scale(scale_s);
 		CHECK(shape_sqr5.volume == 0);
-		CHECK(shape_sqr5.square == 25);
+		CHECK(shape_sqr5.square == 6);
 	}
 
 	SECTION("section cube")
@@ -105,20 +105,20 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		CHECK(shape_cube1.square == 150);
 
 		Shape shape_cube2 = trfrm_shape_cube.scaleX(scale_a);
-		CHECK(shape_cube2.volume == 125);
-		CHECK(shape_cube2.square == 150);
+		CHECK(shape_cube2.volume == 250);
+		CHECK(shape_cube2.square == 250);
 
 		Shape shape_cube3 = trfrm_shape_cube.scaleY(scale_d);
-		CHECK(shape_cube3.volume == 125);
-		CHECK(shape_cube3.square == 150);
+		CHECK(shape_cube3.volume == 750);
+		CHECK(shape_cube3.square == 550);
 
 		Shape shape_cube4 = trfrm_shape_cube.scaleZ(scale_e);
-		CHECK(shape_cube4.volume == 125);
-		CHECK(shape_cube4.square == 150);
+		CHECK(shape_cube4.volume == 1380);
+		CHECK(shape_cube4.square == 1696);
 
 		Shape shape_cube5 = trfrm_shape_cube.scale(scale_s);
-		CHECK(shape_cube5.volume == 125);
-		CHECK(shape_cube5.square == 150);
+		CHECK(shape_cube5.volume == 28);
+		CHECK(shape_cube5.square == 88);
 
 	}
 
