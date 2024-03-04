@@ -31,15 +31,46 @@ Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, in
 		break;
 	}
 	
-	calculate_square_and_volume();
+	// стороны фигуры
+	int a = abs(x1 - x2);
+	int b = abs(y1 - y2);
+	int c = abs(z1 - z2);
+	// считаем площадь фигуры
+	switch (type)
+	{
+	case line:
+		square = 0;
+		break;
+	case sqr:
+		square = a * b;
+		break;
+	case cube:
+		square = 2 * a * b + 2 * a * c + 2 * b * c;
+		break;
+	default:
+		break;
+	}
 
-	
+	// считаем объем фигуры
+	switch (type)
+	{
+	case line:
+		volume = 0;
+		break;
+	case sqr:
+		volume = 0;
+		break;
+	case cube:
+		volume = a * b * c;
+		break;
+	default:
+		break;
+	}
 
 }
 
-Shape::Shape(int _type, int _x1, int _y1, double R, double H)
+Shape::Shape(int type, int _x1, int _y1, double R, double H)
 {
-	type = _type;
 	// заполн¤ем координаты фигуры
 	switch (type)
 	{
@@ -56,43 +87,30 @@ Shape::Shape(int _type, int _x1, int _y1, double R, double H)
 		break;
 	}
 
-	calculate_square_and_volume();
-
-}
-
-void Shape::calculate_square_and_volume()
-{
-	// стороны фигуры
-	int a = abs(x1 - x2);
-	int b = abs(y1 - y2);
-	int c = abs(z1 - z2);
-	int R = radius;
-
-	// считаем площадь и объем фигуры
+	// считаем площадь фигуры
 	switch (type)
 	{
-	case line:
-		square = 0;
-		volume = 0;
-		break;
-	case sqr:
-		square = a * b;
-		volume = 0;
-		break;
-	case cube:
-		square = 2 * a * b + 2 * a * c + 2 * b * c;
-		volume = a * b * c;
-		break;
 	case circle:
 		square = M_PI * R * R;
-		volume = 0;
 		break;
 	case cylinder:
 		square = M_PI * R * R + 2 * R * height;
+		break;
+	default:
+		break;
+	}
+
+	// считаем объем фигуры
+	switch (type)
+	{
+	case circle:
+		volume = 0;
+		break;
+	case cylinder:
 		volume = M_PI * R * R * height;
 		break;
 	default:
 		break;
 	}
-}
 
+}

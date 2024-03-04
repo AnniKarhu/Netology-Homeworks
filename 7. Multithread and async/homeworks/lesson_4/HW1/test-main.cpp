@@ -9,6 +9,8 @@
 #include "transform.h"
 
 
+
+
 TEST_CASE("test  figures", "[test_st_f_s]")
 {
 		int sh_type = 0;
