@@ -5,7 +5,7 @@ Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, in
 {
 	type = _type;
 	// заполн¤ем координаты фигуры
-	switch (type)
+	/*switch (type)
 	{
 	case line: 
 		x1 = _x1; y1 = _y1;
@@ -17,7 +17,7 @@ Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, in
 		x3 = _x3; y3 = _y3;
 		x4 = _x4; y4 = _y4;
 		break;
-	case cube:
+	case cube:*/
 		x1 = _x1; y1 = _y1; z1 = _z1;
 		x2 = _x2; y2 = _y2; z2 = _z2;
 		x3 = _x3; y3 = _y3; z3 = _z3;
@@ -26,10 +26,10 @@ Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, in
 		x6 = _x6; y6 = _y6; z6 = _z6; 
 		x7 = _x7; y7 = _y7; z7 = _z7;
 		x8 = _x8; y8 = _y8; z8 = _z8;
-		break;
+		/*break;
 	default:
 		break;
-	}
+	}*/
 	
 	calculate_square_and_volume();
 
@@ -41,20 +41,20 @@ Shape::Shape(int _type, int _x1, int _y1, double R, double H)
 {
 	type = _type;
 	// заполн¤ем координаты фигуры
-	switch (type)
+	/*switch (type)
 	{
 	case circle:
 		x1 = _x1; y1 = _y1;
 		radius = R;
 		break;
-	case cylinder:
+	case cylinder:*/
 		x1 = _x1; y1 = _y1;
 		radius = R;
 		height = H;
-		break;
+		/*break;
 	default:
 		break;
-	}
+	}*/
 
 	calculate_square_and_volume();
 

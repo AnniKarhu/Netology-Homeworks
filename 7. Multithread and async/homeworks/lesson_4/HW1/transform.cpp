@@ -111,7 +111,7 @@ Shape transform::scaleZ(int e)
 		break;
 	case Shape::cube:
 		shape.z1 *= e;
-		shape.y2 *= e;
+		shape.z2 *= e;
 		shape.z3 *= e;
 		shape.z4 *= e;
 		shape.z5 *= e;

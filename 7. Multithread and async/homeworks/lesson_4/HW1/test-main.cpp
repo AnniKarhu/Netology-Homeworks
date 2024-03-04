@@ -113,12 +113,12 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		CHECK(shape_cube3.square == 550);
 
 		Shape shape_cube4 = trfrm_shape_cube.scaleZ(scale_e);
-		CHECK(shape_cube4.volume == 1380);
-		CHECK(shape_cube4.square == 1696);
+		CHECK(shape_cube4.volume == 3000);
+		CHECK(shape_cube4.square == 1300);
 
 		Shape shape_cube5 = trfrm_shape_cube.scale(scale_s);
-		CHECK(shape_cube5.volume == 28);
-		CHECK(shape_cube5.square == 88);
+		CHECK(shape_cube5.volume == 24);
+		CHECK(shape_cube5.square == 52);
 
 	}
 
