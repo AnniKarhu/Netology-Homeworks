@@ -1,8 +1,14 @@
 #pragma once
-#include<string>
+#include <string>
+#include <vector>
 class Shape
 {
-	
+private:
+	std::vector<int> v_X { 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::vector<int> v_Y { 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::vector<int> v_Z { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+	void renew_X_Y_Z();
 public:
 	static const int line = 0;
 	static const int sqr = 1;
@@ -29,4 +35,10 @@ public:
 	double radius;
 	
 	void calculate_square_and_volume();
+
+	void shift(int m, int n, int k);
+	void scaleX(int a);
+	void scaleY(int d);
+	void scaleZ(int e);
+	void scale(int s);
 };
