@@ -30,6 +30,8 @@ Shape transform::shift(int m, int n, int k)
 		shape.x8 += m; shape.y8 += n; shape.z8 += k;
 		break;
 	}
+
+	shape.calculate_square_and_volume();
 	return shape;
 }
 
@@ -58,6 +60,8 @@ Shape transform::scaleX(int a)
 		shape.x8 *= a;
 		break;
 	}
+
+	shape.calculate_square_and_volume();
 	return shape;
 }
 
@@ -86,6 +90,8 @@ Shape transform::scaleY(int d)
 		shape.y8 *= d;
 		break;
 	}
+
+	shape.calculate_square_and_volume();
 	return shape;
 }
 
@@ -114,6 +120,8 @@ Shape transform::scaleZ(int e)
 		shape.z8 *= e;
 		break;
 	}
+
+	shape.calculate_square_and_volume();
 	return shape;
 }
 
@@ -143,5 +151,6 @@ Shape transform::scale(int s)
 		break;
 	}
 
+	shape.calculate_square_and_volume();
 	return shape;
 }

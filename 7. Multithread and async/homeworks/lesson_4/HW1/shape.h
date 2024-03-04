@@ -2,8 +2,6 @@
 #include<string>
 class Shape
 {
-private:
-	void calculate_square_and_volume();
 	
 public:
 	static const int line = 0;
@@ -29,4 +27,6 @@ public:
 	double square;
 	double height;
 	double radius;
+	
+	void calculate_square_and_volume();
 };
