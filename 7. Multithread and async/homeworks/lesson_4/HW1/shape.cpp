@@ -3,9 +3,10 @@
 #include<cmath>
 #include <algorithm> 
 
+
 Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, int _x3, int _y3, int _z3, int _x4, int _y4, int _z4, int _x5, int _y5, int _z5, int _x6, int _y6, int _z6, int _x7, int _y7, int _z7, int _x8, int _y8, int _z8)
 {
-	type = _type;
+	set_shape_type(_type);
 	
 	v_X[0] = _x1; v_Y[0] = _y1; v_Z[0] = _z1;
 	v_X[1] = _x2; v_Y[1] = _y2; v_Z[1] = _z2;
@@ -17,20 +18,43 @@ Shape::Shape(int _type, int _x1, int _y1, int _z1, int _x2, int _y2, int _z2, in
 	v_X[7] = _x8; v_Y[7] = _y8; v_Z[7] = _z8;
 	
 	renew_X_Y_Z();
-	calculate_square_and_volume();	
-
+	_calculate_VS->calculate_VS(*this);
 }
 
 Shape::Shape(int _type, int _x1, int _y1, double R, double H)
 {
-	type = _type;
-	
+	set_shape_type(_type);
+
 	x1 = _x1; y1 = _y1;
 	radius = R;
 	height = H;		
 
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);
+}
 
+void Shape::set_shape_type(int _type)
+{
+	type = _type;
+	switch (type) 
+	{
+	case line:
+		_calculate_VS = std::make_shared<LineVolumeSquare>();
+		break;
+	case sqr:
+		_calculate_VS = std::make_shared<SqrVolumeSquare>();
+		break;
+	case cube:
+		_calculate_VS = std::make_shared<CubeVolumeSquare>();
+		break;
+	case circle:
+		_calculate_VS = std::make_shared<CircleVolumeSquare>();
+		break;
+	case cylinder:
+		_calculate_VS = std::make_shared<cylinderVolumeSquare>();
+		break;
+	default:
+		throw std::runtime_error("Incorrect shape type");
+	}
 }
 
 void Shape::renew_X_Y_Z()
@@ -45,51 +69,30 @@ void Shape::renew_X_Y_Z()
 	x8 = v_X[7]; y8 = v_Y[7]; z8 = v_Z[7];
 }
 
-void Shape::calculate_square_and_volume()
+int Shape::side_a()
 {
-	// стороны фигуры
-	int a = abs(v_X[0] - v_X[1]);
-	int b = abs(v_Y[0] - v_Y[1]);
-	int c = abs(v_Z[0] - v_Z[1]);
-
-		
-	// считаем площадь и объем фигуры
-	switch (type)
-	{
-	case line:
-		square = 0;
-		volume = 0;
-		break;
-	case sqr:
-		square = a * b;
-		volume = 0;
-		break;
-	case cube:
-		square = 2 * a * b + 2 * a * c + 2 * b * c;
-		volume = a * b * c;
-		break;
-	case circle:
-		square = M_PI * radius * radius;
-		volume = 0;
-		break;
-	case cylinder:
-		square = M_PI * radius * radius + 2 * radius * height;
-		volume = M_PI * radius * radius * height;
-		break;
-	default:
-		break;
-	}
+	return (abs(v_X[0] - v_X[1]));
 }
+int Shape::side_b()
+{
+	return (abs(v_Y[0] - v_Y[1]));
+}
+
+int Shape::side_c()
+{
+	return (abs(v_Z[0] - v_Z[1]));
+}
+
+
 
 void Shape::shift(int m, int n, int k)
 {
-	for (auto& elem : v_X) {	elem += m; }
+	for (auto& elem : v_X) { elem += m; }
 	for (auto& elem : v_Y) { elem += n; }
 	for (auto& elem : v_Z) { elem += k; }
 			
 	renew_X_Y_Z();
-
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);
 }
 
 void Shape::scaleX(int a)
@@ -97,7 +100,7 @@ void Shape::scaleX(int a)
 	for (auto& elem : v_X) { elem *= a; }
 		
 	renew_X_Y_Z();
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);
 }
 
 void Shape::scaleY(int d)
@@ -105,7 +108,7 @@ void Shape::scaleY(int d)
 	for (auto& elem : v_Y) { elem *= d; }
 	
 	renew_X_Y_Z();
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);
 }
 
 void Shape::scaleZ(int e)
@@ -113,7 +116,7 @@ void Shape::scaleZ(int e)
 	for (auto& elem : v_Z) { elem *= e; }
 	
 	renew_X_Y_Z();
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);
 }
 
 void Shape::scale(int s)
@@ -123,7 +126,39 @@ void Shape::scale(int s)
 	for (auto& elem : v_Z) { elem /= s; }
 		
 	renew_X_Y_Z();
-
-	calculate_square_and_volume();
+	_calculate_VS->calculate_VS(*this);	
 }
+
+
+void LineVolumeSquare::calculate_VS(Shape& shp) 
+{
+	shp.volume = 0;
+	shp.square = 0;
+}
+
+void SqrVolumeSquare::calculate_VS(Shape& shp) 
+{
+	shp.volume = 0;
+	shp.square = shp.side_a() * shp.side_b();
+}
+
+void CubeVolumeSquare::calculate_VS(Shape& shp)
+{
+	shp.square = 2 * shp.side_a() * shp.side_b() + 2 * shp.side_a() * shp.side_c() + 2 * shp.side_b() * shp.side_c();
+	shp.volume = shp.side_a() * shp.side_b() * shp.side_c();
+}
+
+
+void CircleVolumeSquare::calculate_VS(Shape& shp) 
+{
+	shp.volume = 0;
+	shp.square = M_PI * shp.radius * shp.radius;
+}
+
+void cylinderVolumeSquare::calculate_VS(Shape& shp) 
+{
+	shp.square = M_PI * shp.radius * shp.radius + 2 * shp.radius * shp.height;
+	shp.volume = M_PI * shp.radius * shp.radius * shp.height;
+}
+
 

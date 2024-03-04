@@ -1,13 +1,61 @@
+
+#include <iostream>
+
 #pragma once
 #include <string>
 #include <vector>
+
+class Shape;
+
+class BaseVolumeSquare
+{
+public:
+	virtual void calculate_VS(Shape& shp) {};
+	virtual ~BaseVolumeSquare() {};
+
+};
+
+class LineVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;	
+};
+
+class SqrVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class CubeVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class CircleVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class cylinderVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+
 class Shape
 {
-private:
+private:	
+	
 	std::vector<int> v_X { 0, 0, 0, 0, 0, 0, 0, 0 };
 	std::vector<int> v_Y { 0, 0, 0, 0, 0, 0, 0, 0 };
 	std::vector<int> v_Z { 0, 0, 0, 0, 0, 0, 0, 0 };
 
+	std::shared_ptr<BaseVolumeSquare> _calculate_VS;
+	void set_shape_type(int _type);
 	void renew_X_Y_Z();
 public:
 	static const int line = 0;
@@ -34,7 +82,9 @@ public:
 	double height;
 	double radius;
 	
-	void calculate_square_and_volume();
+	int side_a();
+	int side_b();
+	int side_c();
 
 	void shift(int m, int n, int k);
 	void scaleX(int a);
@@ -42,3 +92,5 @@ public:
 	void scaleZ(int e);
 	void scale(int s);
 };
+
+
