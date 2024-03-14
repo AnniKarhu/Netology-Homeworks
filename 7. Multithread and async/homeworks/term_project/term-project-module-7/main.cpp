@@ -21,6 +21,8 @@ void func2()
 
 void addF1(thread_pool* thread_pool)
 {
+    if (thread_pool == nullptr) return;
+
     for (int i = 0; i < 5; ++i)
     {              
         std::this_thread::sleep_for(1s);
@@ -30,6 +32,8 @@ void addF1(thread_pool* thread_pool)
 
 void addF2(thread_pool* thread_pool)
 {
+    if (thread_pool == nullptr) return;
+
     for (int i = 5; i < 15; ++i)
     {
        
