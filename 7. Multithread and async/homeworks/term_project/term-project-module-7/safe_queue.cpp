@@ -1,4 +1,4 @@
-#include "safe_queue.h"
+﻿#include "safe_queue.h"
 
 	void safe_queue::sq_push(std::function<void()> new_task, std::string func_name, int func_count)
 	{

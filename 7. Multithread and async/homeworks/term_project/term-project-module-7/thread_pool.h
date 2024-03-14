@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <vector>
 #include <thread>
@@ -18,14 +18,14 @@ private:
 	std::mutex start_mutex;
 	std::condition_variable start_threads;
 	
-	void work(); //рабочая функция потоков	
+	void work(); //СЂР°Р±РѕС‡Р°СЏ С„СѓРЅРєС†РёСЏ РїРѕС‚РѕРєРѕРІ	
 
 public:	
 	
 	thread_pool();	
 	~thread_pool();	
 
-	void submit(std::function<void()> new_task, std::string func_name, int func_count); //добавление задачи в очередь
-	void start_threads_work(); //старт рабочих потоков
-	void finish_tasks(); //флаг завершения генерирования задач	
+	void submit(std::function<void()> new_task, std::string func_name, int func_count); //РґРѕР±Р°РІР»РµРЅРёРµ Р·Р°РґР°С‡Рё РІ РѕС‡РµСЂРµРґСЊ
+	void start_threads_work(); //СЃС‚Р°СЂС‚ СЂР°Р±РѕС‡РёС… РїРѕС‚РѕРєРѕРІ
+	void finish_tasks(); //С„Р»Р°Рі Р·Р°РІРµСЂС€РµРЅРёСЏ РіРµРЅРµСЂРёСЂРѕРІР°РЅРёСЏ Р·Р°РґР°С‡	
 };

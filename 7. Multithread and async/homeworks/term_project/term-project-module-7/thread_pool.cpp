@@ -1,4 +1,4 @@
-#include "thread_pool.h"
+п»ї#include "thread_pool.h"
 
 	thread_pool::thread_pool()
 	{
@@ -6,7 +6,7 @@
 		std::cout << "Total threads number = " << cores << "\n";
 		std::cout << "Work threads number = " << cores - 3 << "\n";
 
-		for (int i = 0; i < cores - 3; ++i) //2 потока складывают в очередь + 1 основной
+		for (int i = 0; i < cores - 3; ++i) //2 РїРѕС‚РѕРєР° СЃРєР»Р°РґС‹РІР°СЋС‚ РІ РѕС‡РµСЂРµРґСЊ + 1 РѕСЃРЅРѕРІРЅРѕР№
 		{
 			th_vector.push_back(std::thread(&thread_pool::work, this));
 		}
