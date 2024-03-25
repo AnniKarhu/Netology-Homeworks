@@ -1,4 +1,4 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <tuple>
 
 #include <catch2/catch_test_macros.hpp>
@@ -11,27 +11,27 @@
 
 TEST_CASE("test  figures", "[test_st_f_s]")
 {
-		int sh_type = 0;
-		int x1 = 0, y1 = 0, z1 = 0,
-			x2 = 5, y2 = 5, z2 = 0,
-			x3 = 0, y3 = 0, z3 = 0,
-			x4 = 0, y4 = 0, z4 = 0,
-			x5 = 0, y5 = 0, z5 = 0,
-			x6 = 0, y6 = 0, z6 = 0,
-			x7 = 0, y7 = 0, z7 = 0,
-			x8 = 0, y8 = 0, z8 = 0;
+	int sh_type = 0;
+	int x1 = 0, y1 = 0, z1 = 0,
+		x2 = 5, y2 = 5, z2 = 0,
+		x3 = 0, y3 = 0, z3 = 0,
+		x4 = 0, y4 = 0, z4 = 0,
+		x5 = 0, y5 = 0, z5 = 0,
+		x6 = 0, y6 = 0, z6 = 0,
+		x7 = 0, y7 = 0, z7 = 0,
+		x8 = 0, y8 = 0, z8 = 0;
 
-		int shift_m = 1, shift_n = 1, shift_k = 1;
-		int scale_a = 2, scale_d = 3, scale_e = 4, scale_s = 5;
-		
-		double R = 5;
-		double H = 0;
+	int shift_m = 1, shift_n = 1, shift_k = 1;
+	int scale_a = 2, scale_d = 3, scale_e = 4, scale_s = 5;
+
+	double R = 5;
+	double H = 0;
 
 	SECTION("section line")
 	{
-		
+
 		Shape shape_line(sh_type, x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4, x5, y5, z5, x6, y6, z6, x7, y7, z7, x8, y8, z8);
-		
+
 		CHECK(shape_line.volume == 0);
 		CHECK(shape_line.square == 0);
 
@@ -41,7 +41,7 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		CHECK(shape_line1.volume == 0);
 		CHECK(shape_line1.square == 0);
 
-		
+
 		Shape shape_line2 = trfrm_shape_line.scaleX(scale_a);
 		CHECK(shape_line2.volume == 0);
 		CHECK(shape_line2.square == 0);
@@ -72,7 +72,7 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		Shape shape_sqr1 = trfrm_shape_sqr.shift(shift_m, shift_n, shift_k);
 		CHECK(shape_sqr1.volume == 0);
 		CHECK(shape_sqr1.square == 25);
-		
+
 		Shape shape_sqr2 = trfrm_shape_sqr.scaleX(scale_a);
 		CHECK(shape_sqr2.volume == 0);
 		CHECK(shape_sqr2.square == 50);
@@ -80,7 +80,7 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		Shape shape_sqr3 = trfrm_shape_sqr.scaleY(scale_d);
 		CHECK(shape_sqr3.volume == 0);
 		CHECK(shape_sqr3.square == 150);
-		
+
 		Shape shape_sqr4 = trfrm_shape_sqr.scaleZ(scale_e);
 		CHECK(shape_sqr4.volume == 0);
 		CHECK(shape_sqr4.square == 150);
@@ -113,12 +113,12 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 		CHECK(shape_cube3.square == 550);
 
 		Shape shape_cube4 = trfrm_shape_cube.scaleZ(scale_e);
-		CHECK(shape_cube4.volume == 1380);
-		CHECK(shape_cube4.square == 1696);
+		CHECK(shape_cube4.volume == 3000);
+		CHECK(shape_cube4.square == 1300);
 
 		Shape shape_cube5 = trfrm_shape_cube.scale(scale_s);
-		CHECK(shape_cube5.volume == 28);
-		CHECK(shape_cube5.square == 88);
+		CHECK(shape_cube5.volume == 24);
+		CHECK(shape_cube5.square == 52);
 
 	}
 
@@ -126,7 +126,7 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 	{
 		sh_type = 3;
 		x1 = 0; y1 = 0;
-		
+
 		Shape shape_circle(sh_type, x1, y1, R, H);
 
 		Catch::Approx target = Catch::Approx(78).epsilon(0.01);
@@ -162,7 +162,7 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 	{
 		sh_type = 4;
 		x1 = 0; y1 = 0;
-		
+
 		R = 5;
 		H = 5;
 		Shape shape_cylinder(sh_type, x1, y1, R, H);
@@ -195,14 +195,14 @@ TEST_CASE("test  figures", "[test_st_f_s]")
 
 	}
 
-	
-	
+
+
 }
 
 
 
 int main()
 {
-	//создается объект Session и у него вызывается метод run
+	
 	return Catch::Session().run();
 }

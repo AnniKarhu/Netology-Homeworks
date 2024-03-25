@@ -1,7 +1,62 @@
+
+#include <iostream>
+
 #pragma once
-#include<string>
+#include <string>
+#include <vector>
+
+class Shape;
+
+class BaseVolumeSquare
+{
+public:
+	virtual void calculate_VS(Shape& shp) {};
+	virtual ~BaseVolumeSquare() {};
+
+};
+
+class LineVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class SqrVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class CubeVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class CircleVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+class cylinderVolumeSquare : public BaseVolumeSquare
+{
+public:
+	void calculate_VS(Shape& shp) override;
+};
+
+
 class Shape
-{	
+{
+private:
+
+	std::vector<int> v_X{ 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::vector<int> v_Y{ 0, 0, 0, 0, 0, 0, 0, 0 };
+	std::vector<int> v_Z{ 0, 0, 0, 0, 0, 0, 0, 0 };
+
+	std::shared_ptr<BaseVolumeSquare> _calculate_VS;
+	void set_shape_type(int _type);
+	void renew_X_Y_Z();
 public:
 	static const int line = 0;
 	static const int sqr = 1;
@@ -14,18 +69,26 @@ public:
 	int getType() { return type; }
 
 	int type;
-	int x1 = 0, y1 = 0, z1 = 0, 
-		x2 = 0, y2 = 0, z2 = 0, 
-		x3 = 0, y3 = 0, z3 = 0, 
-		x4 = 0, y4 = 0, z4 = 0, 
-		x5 = 0, y5 = 0, z5 = 0, 
-		x6 = 0, y6 = 0, z6 = 0, 
-		x7 = 0, y7 = 0, z7 = 0, 
+	int x1 = 0, y1 = 0, z1 = 0,
+		x2 = 0, y2 = 0, z2 = 0,
+		x3 = 0, y3 = 0, z3 = 0,
+		x4 = 0, y4 = 0, z4 = 0,
+		x5 = 0, y5 = 0, z5 = 0,
+		x6 = 0, y6 = 0, z6 = 0,
+		x7 = 0, y7 = 0, z7 = 0,
 		x8 = 0, y8 = 0, z8 = 0;
 	double volume;
 	double square;
 	double height;
 	double radius;
-	
-	void calculate_square_and_volume();
+
+	int side_a();
+	int side_b();
+	int side_c();
+
+	void shift(int m, int n, int k);
+	void scaleX(int a);
+	void scaleY(int d);
+	void scaleZ(int e);
+	void scale(int s);
 };
