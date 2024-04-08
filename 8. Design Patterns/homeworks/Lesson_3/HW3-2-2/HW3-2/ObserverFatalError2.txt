@@ -1,0 +1,2 @@
+observed fatal error 1
+observed fatal error 2
