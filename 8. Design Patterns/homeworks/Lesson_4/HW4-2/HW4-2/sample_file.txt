@@ -1,0 +1,54 @@
+<html>some data for HTML object<html/>
+<html>some data for HTML object<html/>
+{ "data": "some data for HTML object"}
+some data for HTML object
+*********************
+
+{ "data": "some data for JSON object"}
+<html>some data for JSON object<html/>
+{ "data": "some data for JSON object"}
+some data for JSON object
+*********************
+
+some data for text object
+<html>some data for text object<html/>
+{ "data": "some data for text object"}
+some data for text object
+*********************
+
+<html>some data for HTML object<html/>
+<html>some data for HTML object<html/>
+{ "data": "some data for HTML object"}
+some data for HTML object
+*********************
+
+{ "data": "some data for JSON object"}
+<html>some data for JSON object<html/>
+{ "data": "some data for JSON object"}
+some data for JSON object
+*********************
+
+some data for text object
+<html>some data for text object<html/>
+{ "data": "some data for text object"}
+some data for text object
+*********************
+
+<html>some data for HTML object<html/>
+<html>some data for HTML object<html/>
+{ "data": "some data for HTML object"}
+some data for HTML object
+*********************
+
+{ "data": "some data for JSON object"}
+<html>some data for JSON object<html/>
+{ "data": "some data for JSON object"}
+some data for JSON object
+*********************
+
+some data for text object
+<html>some data for text object<html/>
+{ "data": "some data for text object"}
+some data for text object
+*********************
+
