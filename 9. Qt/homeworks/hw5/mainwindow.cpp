@@ -11,45 +11,30 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnStartStop, &QPushButton::clicked, this, MainWindow::btnStartStop_clicked);
     connect (ui->btnLap, &QPushButton::clicked, this, btnLap_clicked);
 
-    timer = new QTimer();
-    connect(timer, &QTimer::timeout, this, MainWindow::on_timer);
-
+    _stopwatch = new Stopwatch(ui->lblCurrentTimeValue);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete timer;
+    delete _stopwatch;
 }
 
-void MainWindow::on_timer()
-{
-
-    QString total_time_str =  _stopwatch.get_total_time().toString("hh:mm:ss:zzz");
-    ui->lblCurrentTimeValue->setText(total_time_str);
-
-}
 
 
 void MainWindow::btnStartStop_clicked()
 {  
-    if (timer->isActive())
+    if ( _stopwatch->IsActive())
     {
-        QString total_time_str =  _stopwatch.get_total_time().toString("hh:mm:ss:zzz");
-        timer->stop();
+        _stopwatch->StopTimer();
         ui->btnLap->setEnabled(false);
-        ui->lblCurrentTimeValue->setText(total_time_str);
         ui->btnStartStop->setText("Старт");
-       // qDebug() << "timer not active " << total_time_str;
     }
     else
     {
-        ui->lblCurrentTimeValue->setText("0");
-        _stopwatch.StartTimer();
-        timer->start(timer_interval);
+        _stopwatch->StartTimer();
         ui->btnLap->setEnabled(true);
-        ui->btnStartStop->setText("Стоп");
-       // qDebug() << "timer active ";
+        ui->btnStartStop->setText("Стоп");       
     }
 
 }
@@ -61,6 +46,6 @@ void  MainWindow::btnClear_clicked()
 
 void MainWindow::btnLap_clicked()
 {
-    QString temp_str = _stopwatch.get_lap_time().toString("hh:mm:ss:zzz");
+    QString temp_str = _stopwatch->get_lap_time().toString("hh:mm:ss:zzz");
     ui->txtbrwsr_LapsInfo->append(temp_str);
 }

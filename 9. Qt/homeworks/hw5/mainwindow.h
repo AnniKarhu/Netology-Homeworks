@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTimer>
+
 
 #include "stopwatch.h"
 
@@ -23,12 +23,10 @@ private slots:
     void btnStartStop_clicked();
     void btnClear_clicked();
     void btnLap_clicked();
-    void on_timer();
 
 private:
-    const int timer_interval = 100;
-    Ui::MainWindow *ui;
-    QTimer* timer;
-    Stopwatch _stopwatch;
+   // const int timer_interval = 100;
+    Ui::MainWindow *ui;   
+    Stopwatch* _stopwatch = nullptr;
 };
 #endif // MAINWINDOW_H
