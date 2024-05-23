@@ -1,9 +1,8 @@
 #include "stopwatch.h"
 #include <QDebug>
 
-Stopwatch::Stopwatch(QLabel* _lbl_Value)
+Stopwatch::Stopwatch()
 {
-    lbl_Value = _lbl_Value;
     timer = new QTimer();
     connect(timer, &QTimer::timeout, this, Stopwatch::on_timer);
 
@@ -20,24 +19,25 @@ bool Stopwatch::IsActive()
         return false;
 
     return timer->isActive();
-
 }
 
+void Stopwatch::ClearTimer()
+{
+    start_time = QTime::currentTime();
+    last_lap_time = QTime::currentTime();
+    LapsNum = 1;
+}
 
 void Stopwatch::StartTimer()
 {
     if (timer == nullptr)
         return;
 
-    start_time = QTime::currentTime();
-    last_lap_time = QTime::currentTime();
-
-    lbl_Value->setText("0");
-   // ui->lblCurrentTimeValue->setText("0");
-   // StartTimer();
+   // start_time = QTime::currentTime();
+   // last_lap_time = QTime::currentTime();
+   // LapsNum = 1;
+    ClearTimer();
     timer->start(timer_interval);
-    //ui->btnLap->setEnabled(true);
-    //ui->btnStartStop->setText("Стоп");
 
 }
 
@@ -48,9 +48,6 @@ void Stopwatch::StopTimer()
 
     QString total_time_str =  get_total_time().toString("hh:mm:ss:zzz");
     timer->stop();
-    lbl_Value->setText(total_time_str);
-    //ui->lblCurrentTimeValue->setText(total_time_str);
-
 }
 
 QTime Stopwatch::get_time_result(QTime& _time)
@@ -62,21 +59,20 @@ QTime Stopwatch::get_time_result(QTime& _time)
 
 void Stopwatch::on_timer()
 {
-
-    if (lbl_Value == nullptr)
-        return;
-
-    QString total_time_str =  get_total_time().toString("hh:mm:ss:zzz");
-    lbl_Value->setText(total_time_str);
+   QString total_time_str =  get_total_time().toString("hh:mm:ss:zzz");
+   emit on_timer_signal(total_time_str);
 }
 
 QTime Stopwatch::get_lap_time()
 {
-
     QTime result = get_time_result(last_lap_time);
     last_lap_time = QTime::currentTime();
-   // qDebug() << "get_lap_time: " << result.toString("hh:mm:ss:zzz");
     return result;
+}
+
+int Stopwatch::get_lap_num()
+{
+    return LapsNum++;
 }
 
 QTime Stopwatch::get_total_time()

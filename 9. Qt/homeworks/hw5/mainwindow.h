@@ -24,9 +24,10 @@ private slots:
     void btnClear_clicked();
     void btnLap_clicked();
 
+    void on_timer(const QString& timer_time);
+
 private:
-   // const int timer_interval = 100;
-    Ui::MainWindow *ui;   
+    Ui::MainWindow *ui;
     Stopwatch* _stopwatch = nullptr;
 };
 #endif // MAINWINDOW_H

@@ -9,22 +9,27 @@ class Stopwatch: public QObject
 {
      Q_OBJECT
 public:
-   Stopwatch(QLabel* _lbl_Value);
+   Stopwatch();
    virtual ~Stopwatch();
 
    void StartTimer();
    void StopTimer();
+   void ClearTimer();
 
    QTime get_lap_time();
    QTime get_total_time();
+   int get_lap_num();
 
    bool IsActive();
+
+signals:
+   void on_timer_signal(QString);
 
 private:
 
     const int timer_interval = 100;
+    int LapsNum = 1;
 
-    QLabel* lbl_Value = nullptr;
     QTimer* timer = nullptr;;
     QTime start_time = QTime(0, 0, 0, 0);
     QTime last_lap_time = QTime(0, 0, 0, 0);

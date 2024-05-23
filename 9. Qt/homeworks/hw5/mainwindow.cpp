@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->btnStartStop, &QPushButton::clicked, this, MainWindow::btnStartStop_clicked);
     connect (ui->btnLap, &QPushButton::clicked, this, btnLap_clicked);
 
-    _stopwatch = new Stopwatch(ui->lblCurrentTimeValue);
+    _stopwatch = new Stopwatch();
+    connect (_stopwatch, Stopwatch::on_timer_signal, this, MainWindow::on_timer);
 }
 
 MainWindow::~MainWindow()
@@ -20,7 +21,10 @@ MainWindow::~MainWindow()
     delete _stopwatch;
 }
 
-
+void MainWindow::on_timer(const QString& timer_time)
+{
+   ui->lblCurrentTimeValue->setText(timer_time);
+}
 
 void MainWindow::btnStartStop_clicked()
 {  
@@ -36,16 +40,20 @@ void MainWindow::btnStartStop_clicked()
         ui->btnLap->setEnabled(true);
         ui->btnStartStop->setText("Стоп");       
     }
-
 }
 
 void  MainWindow::btnClear_clicked()
 {
      ui->lblCurrentTimeValue->setText("0");
+     _stopwatch-> ClearTimer();
 }
 
 void MainWindow::btnLap_clicked()
 {
-    QString temp_str = _stopwatch->get_lap_time().toString("hh:mm:ss:zzz");
-    ui->txtbrwsr_LapsInfo->append(temp_str);
+   QString ResultStr = "Круг " +
+            QString::number(_stopwatch->get_lap_num()) +
+           ", время: " +
+          _stopwatch->get_lap_time().toString("hh:mm:ss:zzz");
+
+     ui->txtbrwsr_LapsInfo->append(ResultStr);
 }
