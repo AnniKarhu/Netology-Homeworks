@@ -81,8 +81,13 @@ void MainWindow::StartRace(void){
 
     if(ui->rb_qtConcur->isChecked()){
 
-        ui->te_debug->append("Выполни ДЗ!");
+        //ui->te_debug->append("Выполни ДЗ!");
         //Тут должен быть код ДЗ
+        auto calc1 = [this]{concurRace1->DoWork(&number, true, ui->sb_initNum->value());};
+        auto calc2 = [this]{concurRace2->DoWork(&number, true, ui->sb_initNum->value());};
+
+        QtConcurrent::run(calc1);
+        QtConcurrent::run(calc2);
 
     }
     else{

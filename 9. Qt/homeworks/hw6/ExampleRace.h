@@ -37,6 +37,7 @@ public:
 
         ExampleRace *race = new ExampleRace(mut); //экземпляр нашего класса
         race->moveToThread(&workerThread); //Помещаем в поток
+
         connect(&workerThread, &QThread::finished, race, &QObject::deleteLater); //По завершению потока удаляем экземпляр класса
         connect(this, &Controller::operate, race, &ExampleRace::DoWork); //Запускаем "тяжелый" метод
         connect(race, &ExampleRace::sig_Finish, this, &Controller::sig_WorkFinish); //Пробрасываем сигнал для отображения в GUI

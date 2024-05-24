@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QtConcurrent>
+#include <QFuture>
+#include <QFutureWatcher>
 #include "ExampleRace.h"
 
 QT_BEGIN_NAMESPACE
