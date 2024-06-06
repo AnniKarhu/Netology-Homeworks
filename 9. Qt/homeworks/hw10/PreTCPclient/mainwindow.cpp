@@ -152,7 +152,7 @@ void MainWindow::on_pb_connect_clicked()
 
 
     if(ui->pb_connect->text() == "Подключиться"){
-        qDebug() << "Connect clicked2";
+
         uint16_t port = ui->spB_port->value();
 
         QString ip = ui->spB_ip4->text() + "." +
@@ -164,7 +164,6 @@ void MainWindow::on_pb_connect_clicked()
 
     }
     else{
-        qDebug() << "Connect clicked3";
         client->DisconnectFromHost();
     }
 }
@@ -186,34 +185,29 @@ void MainWindow::on_pb_request_clicked()
    switch (ui->cb_request->currentIndex()){       
        case 0://Получить время
         {
-            qDebug() << "Запрос получить время";
             header.idData = GET_TIME;
             break;
         }
        case 1://Получить свободное место
         {
-            qDebug() << "Запрос получить свободное место";
             header.idData = GET_SIZE;
             break;
         }
        case 2://Получить статистику
         {
-            qDebug() << "Запрос получить статистику";
             header.idData = GET_STAT;
             break;
         }
        case 3://Отправить данные
         {
-            qDebug() << "Запрос Отправить данные ";
-            header.idData =SET_DATA;
+            header.idData = SET_DATA;
             QString data_str = ui->le_data->text();
             client->SendData(header, data_str);
             return;
         }
        case 4://Очистить память на сервере
-        {
-            qDebug() << "Запрос Очистить память на сервере ";
-            header.idData =CLEAR_DATA;
+        {            
+            header.idData = CLEAR_DATA;
             break;
         }
        default:

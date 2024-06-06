@@ -52,13 +52,13 @@ TCPclient::TCPclient(QObject *parent) : QObject(parent)
 */
 void TCPclient::SendRequest(ServiceHeader head)
 {
-    qDebug() << "SendRequest 1";
+
     QByteArray array_to_send;
     QDataStream outStream(&array_to_send, QIODevice::WriteOnly);
-
+    head.len = 0;
     outStream << head;
     socket->write(array_to_send);
-    qDebug() << "SendRequest 2";
+
 }
 
 /* write
@@ -66,17 +66,17 @@ void TCPclient::SendRequest(ServiceHeader head)
 */
 void TCPclient::SendData(ServiceHeader head, QString str)
 {
-    qDebug() << "SendData 1";
     QByteArray array_to_send;
     QDataStream outStream(&array_to_send, QIODevice::WriteOnly);
+
+    head.len = str.size();
+    if (head.len == 0)
+        return;
 
     outStream << head;
     outStream << str;
     socket->write(array_to_send);
-     qDebug() << "SendData 2";
-     qDebug() << array_to_send;
-
-}
+ }
 
 /*
  * \brief Метод подключения к серверу
@@ -96,11 +96,11 @@ void TCPclient::DisconnectFromHost()
 
 void TCPclient::ReadyReed()
 {
-    qDebug() << "ReadyReed 1";
+
     QDataStream incStream(socket);
 
     if(incStream.status() != QDataStream::Ok){
-        qDebug() << "ReadyReed 2";
+
         QMessageBox msg;
         msg.setIcon(QMessageBox::Warning);
         msg.setText("Ошибка открытия входящего потока для чтения данных!");
@@ -112,7 +112,7 @@ void TCPclient::ReadyReed()
     while(incStream.atEnd() == false){
         //Если мы обработали предыдущий пакет, мы скинули значение idData в 0
         if(servHeader.idData == 0){
-            qDebug() << "ReadyReed 3";
+
             //Проверяем количество полученных байт. Если доступных байт меньше чем
             //заголовок, то выходим из обработчика и ждем новую посылку. Каждая новая
             //посылка дописывает данные в конец буфера
@@ -120,13 +120,13 @@ void TCPclient::ReadyReed()
                 return;
             }
             else{
-                qDebug() << "ReadyReed 4";
+
                 //Читаем заголовок
                 incStream >> servHeader;
                 //Проверяем на корректность данных. Принимаем решение по заранее известному ID
                 //пакета. Если он "битый" отбрасываем все данные в поисках нового ID.
                 if(servHeader.id != ID){
-                    qDebug() << "ReadyReed 5";
+
                     uint16_t hdr = 0;
                     while(incStream.atEnd()){
                         incStream >> hdr;
@@ -143,13 +143,11 @@ void TCPclient::ReadyReed()
 
         //Если получены не все данные, то выходим из обработчика. Ждем новую посылку
         if(socket->bytesAvailable() < servHeader.len){
-            qDebug() << "ReadyReed 6";
+
             return;
         }
         else{
             //Обработка данных
-            qDebug() << "ReadyReed 7";
-            qDebug() << "data len = " <<  servHeader.len;
             ProcessingData(servHeader, incStream);
             servHeader.idData = 0;
             servHeader.status = 0;
@@ -167,15 +165,13 @@ void TCPclient::ReadyReed()
 */
 
 void TCPclient::ProcessingData(ServiceHeader header, QDataStream &stream)
-{
-    qDebug() << "ProcessingData 1";
+{    
     switch (header.idData){
 
         case GET_TIME:
         {
             QDateTime time;
             stream >> time;
-            qDebug() << "emit sig_sendTime";
             emit sig_sendTime(time);
             break;
         }
@@ -183,7 +179,6 @@ void TCPclient::ProcessingData(ServiceHeader header, QDataStream &stream)
         {
             uint32_t free_size;
             stream >> free_size;
-           qDebug() << "sig_sendFreeSize";
             emit sig_sendFreeSize(free_size);
             break;
         }
@@ -191,7 +186,6 @@ void TCPclient::ProcessingData(ServiceHeader header, QDataStream &stream)
         {
             StatServer stat;
 
-           // stream >> stat;
             stream >> stat.incBytes;  //принято байт
             stream >> stat.sendBytes;
             stream >> stat.revPck;
@@ -199,7 +193,6 @@ void TCPclient::ProcessingData(ServiceHeader header, QDataStream &stream)
             stream >> stat.workTime;
             stream >> stat.clients;
 
-            qDebug() << "sig_sendStat";
              emit sig_sendStat(stat);
              break;
         }
@@ -207,30 +200,19 @@ void TCPclient::ProcessingData(ServiceHeader header, QDataStream &stream)
         {
             QString data_str;
             stream >> data_str;
-            qDebug() << "sig_SendReplyForSetData";
-            qDebug() << "data_str = " + data_str;
             emit  sig_SendReplyForSetData(data_str);
             break;
         }
         case CLEAR_DATA:
         {
-
-            qDebug() << "case CLEAR_DATA:";
-            ServiceHeader hdr;
-            stream >> hdr;
-            qDebug() << "hdr.status = " << hdr.status;
-            if (hdr.status == STATUS_SUCCES)
+            if (header.status == STATUS_SUCCES)
             {
-                qDebug() << "sig_Success";
-                emit  sig_Success(CLEAR_DATA);
+                 emit  sig_Success(CLEAR_DATA);
             }
-
             break;
-
         }
         default:
             return;
 
         }
-
 }
