@@ -308,12 +308,6 @@ void MainWindow::on_BuildChart(double min, double max)
       //chartForm->show();
     chartView->show( );
 
-    //Перед новой отрисовкой очистить график
-    if(chart->series().isEmpty() == false){
-        graphClass->ClearGraph(chart);
-    }
-
-
     //Обновить график, т.е. добавить сформированыые серии на график
     graphClass->UpdateGraph(chart);
     //И отобразить его.
