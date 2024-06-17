@@ -277,6 +277,14 @@ void MainWindow::on_pb_start_clicked()
 
                                                 QVector<double> maxs_y = FindMax(y);
                                                 QVector<double> mins_y = FindMin(y);
+
+                                                //очистить предыдущее - сначала проверить есть ли данные
+                                                //если вызвать ClearGraph без проверки - приведет к краху программы
+                                                //Перед новой отрисовкой очистить график
+                                                if(chart->series().isEmpty() == false){
+                                                    graphClass->ClearGraph(chart);
+                                                }
+
                                                 //Добавить данные в серию
                                                 graphClass->AddDataToGrahp(x,y, 1);
 
